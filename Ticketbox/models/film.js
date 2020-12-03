@@ -4,11 +4,11 @@ module.exports = {
   async all() {
     const sql = 'select * from film';
     const [rows, fields] = await db.load(sql);
-    console.log(rows)
+    console.log(rows,typeof(rows));
     return rows;
   },
 
-  async single(id) {
+  async searchBy(id) {
     const sql = `select * from film where id = ${id}`;
     const [rows, fields] = await db.load(sql);
     if (rows.length === 0)
@@ -20,6 +20,9 @@ module.exports = {
   async add(film) {
     const [result, fields] = await db.add(film, 'film');
     // console.log(result);
+    if (result.length === 0)
+      return null;
+
     return result;
   },
 
@@ -28,16 +31,21 @@ module.exports = {
       id
     };
     const [result, fields] = await db.del(condition, 'film');
+    if (result.length === 0)
+      return null;
+
     return result;
   },
 
-  async patch(entity) {
+  async update(film) {
     const condition = {
-      id: entity.id
+      id: film.id
     };
-    delete (entity.id);
+    delete (film.id);
 
-    const [result, fields] = await db.patch(entity, condition, 'film');
+    const [result, fields] = await db.update(film, condition, 'film');
+    if (result.length === 0)
+      return null;
     return result;
   }
 };
