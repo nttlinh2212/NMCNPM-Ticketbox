@@ -9,9 +9,11 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', async function(req, res, next) {
   const films = await filmModel.all();
-  const theaters = await filmModel.all();
+  const theaters = await theaterModel.all();
   
-  console.log(films);
+
+  //console.log(await showtimeModel.allSeats(30000));
+  //console.log(films);
   res.render('index', { title: 'Home', films, theaters});
 });
 //duong dan den film co dang href='/film?id=3'

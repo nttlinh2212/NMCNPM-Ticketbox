@@ -22,21 +22,23 @@ module.exports = {
   async allSeats(idshowtime) {
     const sql = `select * from showtime,seatsofshowtime where id = idshowtime and idshowtime = ${idshowtime}`;
     const [rows, fields] = await db.load(sql);
+    //console.log(rows);
     if(rows.length===0)
         return null;
     let lstSeats = [];
     let k = 0; 
-    const num_rows = lstSeats.numberofrows;
-    const num_columns = lstSeats.numberofcolumns;
+    const num_rows = rows[0].numberofrows;
+    const num_columns = rows[0].numberofcolumns;
     for (let i = 0; i < num_rows; i++) {
-        lstSeats.push([]);
+        let arr = [];
         for (let j = 0; j < num_columns; j++) {
-            lstSeats[i].push(rows[k++]);
-            
+            arr.push(rows[k++]);
+        //console.log(arr);  
         }
+        lstSeats.push(arr);
         
     }
-    //console.log(rows,typeof(rows));
+    //console.log(lstSeats.length,lstSeats[0].length);
     return lstSeats;
   },
   //fuction search key parameter can be integer(id)
