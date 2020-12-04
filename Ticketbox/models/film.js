@@ -4,25 +4,40 @@ module.exports = {
   async all() {
     const sql = 'select * from film';
     const [rows, fields] = await db.load(sql);
-    console.log(rows,typeof(rows));
+    //console.log(rows,typeof(rows));
     return rows;
   },
-
-  async searchBy(id) {
-    const sql = `select * from film where id = ${id}`;
+  //fuction search key parameter can be integer(id) or string(title)
+  async searchBy(key) {
+    if(!isNaN(key)){
+      const sql = `select * from film where id = ${key}`;
+      const [rows, fields] = await db.load(sql);
+      console.log(rows.length);
+      if(rows.length===0)
+        return null;
+      return rows[0];
+    }
+    const sql = `select * from film where title like "${key}"`;
+    console.log(sql);
     const [rows, fields] = await db.load(sql);
-    if (rows.length === 0)
-      return null;
-
-    return rows[0];
+    console.log(rows.length);
+    if(rows.length===0)
+        return null;
+    return rows[0];  
+    
+  },
+  async searchSimilar(key) {
+    const sql = `select * from film where title like "%${key}%"`;
+    console.log(sql);
+    const [rows, fields] = await db.load(sql);
+    console.log(rows.length);
+    return rows;  
+    
   },
 
   async add(film) {
     const [result, fields] = await db.add(film, 'film');
     // console.log(result);
-    if (result.length === 0)
-      return null;
-
     return result;
   },
 
@@ -31,9 +46,6 @@ module.exports = {
       id
     };
     const [result, fields] = await db.del(condition, 'film');
-    if (result.length === 0)
-      return null;
-
     return result;
   },
 
@@ -42,10 +54,7 @@ module.exports = {
       id: film.id
     };
     delete (film.id);
-
     const [result, fields] = await db.update(film, condition, 'film');
-    if (result.length === 0)
-      return null;
     return result;
   }
 };
