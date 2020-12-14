@@ -36,9 +36,7 @@ module.exports = {
   },
 
   async add(user) {
-    const [result, fields] = await db.add(cus, 'user');
-    // console.log(result);
-
+    const [result, fields] = await db.add(user, 'user');
     return result;
   },
   async del(id) {
