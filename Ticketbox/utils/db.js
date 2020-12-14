@@ -8,7 +8,9 @@ module.exports = {
   load(sql) {
     return promisePool.query(sql); // [rows, fields]
   },
-
+  load1(sql, condition) {
+    return promisePool.query(sql,condition); // [rows, fields]
+  },
   add(entity, table_name) {
     const sql = `insert into ${table_name} set ?`;
     return promisePool.query(sql, entity);

@@ -31,7 +31,7 @@ router.get('/film', async function(req, res, next) {
         console.log('Not found Film');
         return res.redirect('/');
     }
-    const showtimes = await showtimeModel.allShowtimesByFilm(film.id);
+    const showtimes = await showtimeModel.allShowtimesByFilmGroupByTheater(film.id);
     res.render('film', { title: film.title, film , showtimes});
 });
 //duong dan den film co dang href='/film/10000'
@@ -44,7 +44,8 @@ router.get('/theater/:id', async function(req, res, next) {
         console.log('Not found Theater');
         return res.redirect('/');
     }
-    const showtimes = await showtimeModel.allShowtimesByTheater(theater.id);
+    const showtimes = await showtimeModel.allShowtimesByTheaterGroupByFilm(theater.id);
+    //console.log(JSON.stringify(showtimeModel.all()));
     res.render('theater', { title: theater.name, theater, showtimes });
 });
 module.exports = router;

@@ -5,6 +5,7 @@
       "user": "root",
       "password": "22121999",
       "database": "Ticketbox1",
+      "dateStrings":true,
       "waitForConnections": true,
       "connectionLimit": 50,
       "queueLimit": 0
