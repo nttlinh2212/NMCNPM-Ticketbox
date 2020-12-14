@@ -11,10 +11,10 @@ router.get('/', async function(req, res) {
         films: list,
         empty: list.length === 0
     });
-})
+});
 
-router.get('/edit', async function(req, res) {
-    const id = req.query.id;
+router.get('/edit/:id', async function(req, res) {
+    const id = +req.params.id;
     const film = await filmModel.searchBy(id);
     if (film === null) {
         return res.redirect('/admin/film');
@@ -23,25 +23,31 @@ router.get('/edit', async function(req, res) {
     res.render('admin/film/edit', {
         film
     });
-})
+});
+router.post('/edit', async function(req, res) {
+    await filmModel.update(req.body);
+    res.redirect('/admin/film');
+});
 
 router.get('/add', function(req, res) {
     res.render('admin/film/add');
-})
+});
 
 router.post('/add', async function(req, res) {
     await filmModel.add(req.body);
-    res.render('admin/film/add');
-})
+    res.render('admin/film');
+});
 
-router.post('/del', async function(req, res) {
-    await filmModel.del(req.body.CatID);
-    res.redirect('/admin/film');
-})
 
-router.post('/update', async function(req, res) {
-    await filmModel.update(req.body);
+router.get('/del/:id', async function(req, res) {
+    const id = +req.params.id;
+    const result = await filmModel.del(id);
+    if (result.length === 0)
+        console.log("Delete",id,"fail");
+    console.log("Delete",id,"sucessful");
     res.redirect('/admin/film');
-})
+});
+
+
 
 module.exports = router;

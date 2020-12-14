@@ -4,7 +4,7 @@
       "port": 3306,
       "user": "root",
       "password": "22121999",
-      "database": "Ticketbox",
+      "database": "Ticketbox1",
       "waitForConnections": true,
       "connectionLimit": 50,
       "queueLimit": 0
