@@ -6,9 +6,6 @@ var logger = require('morgan');
 require('express-async-errors');
 
 var indexRouter = require('./routes/index');
-var adminAccountRouter = require('./routes/admin.account');
-var adminFilmRouter = require('./routes/admin.film');
-var adminReportRouter = require('./routes/admin.report');
 
 var app = express();
 
@@ -27,9 +24,9 @@ app.use("/images",express.static(path.join(__dirname, 'images')));
 
 
 app.use('/', indexRouter);
-app.use('/admin/film', adminFilmRouter);
-app.use('/admin/account', adminAccountRouter);
-app.use('/admin/report', adminReportRouter);
+app.use('/admin/film', require('./routes/admin/film'));
+app.use('/admin/account', require('./routes/admin/account'));
+app.use('/admin/report', require('./routes/admin/report'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res) {
