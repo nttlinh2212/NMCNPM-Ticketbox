@@ -84,7 +84,7 @@ router.post('/delete', async function (req, res) {
   console.log(typeof (req.body.id_del));
   console.log(parseInt(req.body.id_del));
 
-  // const id = req.body.id_del;
+  const id = req.body.id_del;
   const result = await filmModel.del(req.body.id_del);
   if (result.length === 0)
     console.log("Delete", id, "fail");

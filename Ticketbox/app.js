@@ -24,9 +24,12 @@ app.use("/images",express.static(path.join(__dirname, 'images')));
 
 
 app.use('/', indexRouter);
+app.use('/admin/', require('./routes/admin/index'));
 app.use('/admin/film', require('./routes/admin/film'));
 app.use('/admin/account', require('./routes/admin/account'));
 app.use('/admin/report', require('./routes/admin/report'));
+app.use('/admin/showtime', require('./routes/admin/showtime'));
+app.use('/admin/theater', require('./routes/admin/theater'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res) {

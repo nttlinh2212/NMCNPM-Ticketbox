@@ -22,13 +22,13 @@
               <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <a href="/admin/film/add"><button type="button" class="btn btn-primary">Add Film</button></a>
+                <a href="/admin/theater/add"><button type="button" class="btn btn-primary">Add Theater</button></a>
                 <!-- <h1 class="h3 mb-2 text-gray-800">Tables</h1> -->
 
                 <!-- Show Data -->
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Film</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Theater</h6>
                   </div>
 
                   <div class="card-body">
@@ -36,50 +36,30 @@
                       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                           <tr>
-                            <th>Id</th>
-                            <th>Title</th>
-                            <th>Duration</th>
-                            <th>Genre</th>
-                            <th>Director</th>
-                            <th>Cast</th>
-                            <th>Release date</th>
-                            <th>Language</th>
+                            <th>Id Theater</th>
+                            <th>Name</th>
+                            <th>Address</th>
                             <th>Action</th>
                           </tr>
                         </thead>
 
                         <tbody>
-                          <% films.forEach(function(item){ %>
+                          <% theaters.forEach(function(item){ %>
                             <tr>
                               <td>
                                 <%= item.id %>
                               </td>
                               <td>
-                                <%= item.title %>
+                                <%= item.name %>
                               </td>
                               <td>
-                                <%= item.duration %>
-                              </td>
-                              <td>
-                                <%= item.genre %>
-                              </td>
-                              <td>
-                                <%= item.director %>
-                              </td>
-                              <td>
-                                <%= item.Cast %>
-                              </td>
-                              <td>
-                                <%= item.releasedate %>
-                              </td>
-                              <td>
-                                <%= item.language %>
+                                <%= item.address %>
                               </td>
                               <td style="text-align: center; padding-right: 5px;">
-                                <a href="film/edit/<%= item.id %>" class="btn btn-primary">
+                                <a href="theater/edit/<%= item.id %>" class="btn btn-primary">
                                   Edit
                                 </a>
-                                <form action="/admin/film/delete" method="post">
+                                <form action="/admin/theater/delete" method="post">
                                   <button type="submit" class="btn btn-secondary btn-del" name="id_del"
                                     value="<%= item.id %>">
                                     Delete

@@ -35,7 +35,7 @@ router.post('/edit', async function (req, res, next) {
     phone: req.body.phone,
     point: req.body.point,
     favouriteGenre: req.body.favouriteGenre,
-    isadmin: req.body.isadmin
+    isadmin: parseInt(req.body.isadmin)
   }
   const result = await userModel.update(user);
   if (result.length === 0) { console.log("Edit", user.id, "fail"); }
@@ -59,12 +59,12 @@ router.post('/add', async function (req, res) {
     phone: req.body.phone,
     point: req.body.point,
     favouriteGenre: req.body.favouriteGenre,
-    isadmin: req.body.isadmin
+    isadmin: parseInt(req.body.isadmin)
   }
 
 
   const result = await userModel.add(user);
-  if (result.length === 0) { console.log("Delete", user.id, "fail"); }
+  if (result.length === 0) { console.log("Add", user.id, "fail"); }
   console.log("Add", user.id, "sucessful");
 
   res.redirect('/admin/account');
