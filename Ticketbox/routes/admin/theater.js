@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const theaterModel = require('../../models/theater');
+const {authAdmin} = require('../../middlewares/auth');
 
 router.get('/', async function (req, res) {
   const list = await theaterModel.all();

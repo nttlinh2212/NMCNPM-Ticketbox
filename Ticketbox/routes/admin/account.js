@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const userModel = require('../../models/user');
+const {authAdmin} = require('../../middlewares/auth');
 
-router.get('/', async function (req, res) {
+
+router.get('/',authAdmin, async function (req, res) {
   const list = await userModel.allCustomer();
   res.render('admin/account/index', {
     users: list,
@@ -10,7 +12,7 @@ router.get('/', async function (req, res) {
   });
 })
 
-router.get('/edit/:id', async function (req, res) {
+router.get('/edit/:id',authAdmin, async function (req, res) {
   const id = req.params.id;
   const users = await userModel.searchBy(parseInt(id));
   // console.log(id);
@@ -25,7 +27,7 @@ router.get('/edit/:id', async function (req, res) {
 
 })
 
-router.post('/edit', async function (req, res, next) {
+router.post('/edit',authAdmin, async function (req, res, next) {
   const user = {
     id: parseInt(req.body.id),
     fullname: req.body.fullname,
@@ -45,11 +47,11 @@ router.post('/edit', async function (req, res, next) {
 })
 
 
-router.get('/add', function (req, res) {
+router.get('/add',authAdmin, function (req, res) {
   res.render('admin/account/add');
 })
 
-router.post('/add', async function (req, res) {
+router.post('/add',authAdmin, async function (req, res) {
   const user = {
     id: parseInt(req.body.id),
     fullname: req.body.fullname,
@@ -71,7 +73,7 @@ router.post('/add', async function (req, res) {
 })
 
 
-router.post('/delete', async function (req, res) {
+router.post('/delete',authAdmin, async function (req, res) {
   console.log("Delete");
   console.log("Delete");
   console.log("Delete");

@@ -56,16 +56,5 @@ module.exports = {
     const [result, fields] = await db.update(user, condition, 'user');
     return result;
   },
-  //0 wrong 1 cus 2 admin
-  async checkAnAccount(username, password){
-    const sql = `select * from user where username = ${username} and password =${password}`;
-    const [rows, fields] = await db.load(sql);
-    //console.log(rows,typeof(rows));
-    if(rows.length===0)
-        return 0;
-    if(rows[0].isadmin)
-        return 2;
-    return 1;
-  }
 
 };

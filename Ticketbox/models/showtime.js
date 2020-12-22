@@ -5,13 +5,10 @@ module.exports = {
   async all() {
     const sql = 'select * from showtime';
     const [rows, fields] = await db.load(sql);
-    //console.log(rows,typeof(rows));
     return rows;
   },
   async allShowtimesByTheaterGroupByFilm(idtheater) {
-    //console.log("in here allShowtimesByTheaterGroupByFilm");
     const sql = 'select date from showtime group by date ';
-    //console.log(sql);
     const [rows, fields] = await db.load(sql);
     if(rows.length === 0){
       return [[[]]];
@@ -21,17 +18,13 @@ module.exports = {
       const temp = await this.allShowtimesByTheaterGroupByFilm1(idtheater,one.date);
       res.push(temp);
     }
-    //console.log(JSON.stringify(res));
     return res;
   },
   async allShowtimesByTheaterGroupByFilm1(idtheater,date) {
-    //console.log("innnnnnn hereallShowtimesByTheaterGroupByFilm");
     var mysqlDate = moment(date).format('YYYY-MM-DD');
     console.log(mysqlDate);
     const sql = `SELECT s.idfilm FROM showtime s where idtheater = ${idtheater} and date ='${mysqlDate}' group by s.idfilm order by s.idfilm asc `;
-    //console.log(this.findBy(mysqlDate));
     const [rows, fields] = await db.load(sql);
-    //console.log(rows);
     if(rows.length === 0){
       return [[]];
     }
@@ -40,13 +33,10 @@ module.exports = {
       const temp = await this.allShowtimesByTF(idtheater,one.idfilm,mysqlDate);
       res.push(temp);
     }
-    //console.log(res);
     return res;
   },
   async allShowtimesByFilmGroupByTheater(idfilm) {
-    //console.log("in here allShowtimesByTheaterGroupByFilm");
     const sql = 'select date from showtime group by date ';
-    //console.log(sql);
     const [rows, fields] = await db.load(sql);
     if(rows.length === 0){
       return [[[]]];
@@ -56,18 +46,14 @@ module.exports = {
       const temp = await this.allShowtimesByFilmGroupByTheater1(idfilm,one.date);
       res.push(temp);
     }
-    //console.log(JSON.stringify(res));
     return res;
     
   },
   async allShowtimesByFilmGroupByTheater1(idfilm,date) {
-    //console.log("innnnnnn hereallShowtimesByTheaterGroupByFilm");
     var mysqlDate = moment(date).format('YYYY-MM-DD');
     console.log(mysqlDate);
     const sql = `SELECT s.idtheater FROM showtime s where idfilm = ${idfilm} and date ='${mysqlDate}' group by s.idtheater order by s.idtheater asc `;
-    //console.log(this.findBy(mysqlDate));
     const [rows, fields] = await db.load(sql);
-    //console.log(rows);
     if(rows.length === 0){
       return [[]];
     }
@@ -76,7 +62,6 @@ module.exports = {
       const temp = await this.allShowtimesByTF(one.idtheater,idfilm,mysqlDate);
       res.push(temp);
     }
-    //console.log(res);
     return res;
   },
   async allShowtimesByTF(idtheater,idfilm,date) {
@@ -84,7 +69,6 @@ module.exports = {
       where s.idtheater = ${idtheater} and s.idfilm = ${idfilm} and date = '${date}'
       order by s.date asc`;
     const [rows, fields] = await db.load(sql);
-    //console.log(rows,typeof(rows));
     return rows;
   },
   // async allShowtimesByTheater(idtheater) {
@@ -120,7 +104,6 @@ module.exports = {
         lstSeats.push(arr);
         
     }
-    //console.log(lstSeats.length,lstSeats[0].length);
     return lstSeats;
   },
   //fuction search key parameter can be integer(id)

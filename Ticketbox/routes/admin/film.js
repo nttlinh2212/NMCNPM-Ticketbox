@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const filmModel = require('../../models/film');
+const {authAdmin} = require('../../middlewares/auth');
 
 router.get('/', async function (req, res) {
   const list = await filmModel.all();
@@ -9,10 +10,6 @@ router.get('/', async function (req, res) {
     empty: list.length === 0
   });
 })
-
-
-
-
 
 router.get('/edit/:id', async function (req, res) {
   const id = req.params.id;
@@ -31,7 +28,6 @@ router.get('/edit/:id', async function (req, res) {
 
 router.post('/edit', async function (req, res, next) {
   const film = {
-    id: parseInt(req.body.id),
     title: req.body.title,
     description: req.body.description,
     duration: parseInt(req.body.duration),
@@ -58,7 +54,7 @@ router.get('/add', async function (req, res) {
 
 router.post('/add', async function (req, res) {
   const film = {
-    id: parseInt(req.body.id),
+    
     title: req.body.title,
     description: req.body.description,
     duration: parseInt(req.body.duration),
