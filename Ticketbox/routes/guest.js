@@ -84,6 +84,21 @@ router.post('/signup', async function (req, res) {
     const url = req.headers.referer || '/';
     res.redirect(url);
   })
+  //cach goi $.getJSON(`/showtimes-groupby-theater?id=10000&date=1/1/2021`
+  router.get('/showtimes-groupby-theater', async function (req, res) {
+    console.log(req.query);
+    //check showtimes=null=>print ko co suat chieu ngc laij thi in ra list suat chieu
+    //showtimes =[[],[],[10h,3h]]
+    const showtimes = await showtimeModel.allShowtimesByFilmGroupByTheater1(req.query.id,req.query.date);
+    console.log(showtimes);
+    res.json(showtimes);
+  })
+  router.get('/showtimes-groupby-film', async function (req, res) {
+    console.log(req.query);
+    const showtimes = await showtimeModel.allShowtimesByTheaterGroupByFilm1(req.query.id,req.query.date);
+    console.log(showtimes);
+    res.json(showtimes);
+  })
 //duong dan den film co dang href='/film?id=3'
 router.get('/film', async function(req, res, next) {
     const id = req.query.id;
@@ -94,7 +109,7 @@ router.get('/film', async function(req, res, next) {
         return res.redirect('/');
     }
     const showtimes = await showtimeModel.allShowtimesByFilmGroupByTheater(film.id);
-    res.render('guest/film', { title: film.title, film , showtimes, releasedate: film.releasedate});
+    res.render('guest/film', { title: film.title, film, releasedate: film.releasedate});
 });
 //duong dan den film co dang href='/film/10000'
 router.get('/theater/:id', async function(req, res, next) {
@@ -108,6 +123,6 @@ router.get('/theater/:id', async function(req, res, next) {
     }
     const showtimes = await showtimeModel.allShowtimesByTheaterGroupByFilm(theater.id);
     console.log(JSON.stringify(showtimes));
-    res.render('guest/theater', { title: theater.name, theater, showtimes });
+    res.render('guest/theater', { title: theater.name, theater });
 });
 module.exports = router;

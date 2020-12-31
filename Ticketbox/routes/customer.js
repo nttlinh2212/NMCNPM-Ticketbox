@@ -3,15 +3,18 @@ const filmModel = require('../models/film');
 const theaterModel = require('../models/theater');
 const userModel = require('../models/user');
 const showtimeModel = require('../models/showtime');
-const {authCustomer} = require('../middlewares/auth');
+
 
 var router = express.Router();
 
 /* GET home page. */
-router.get('/profile',authCustomer, async function(req, res, next) {
-    res.send('customer/profile');
+router.get('/profile',async function(req, res, next) {
+    res.render('customer/profile',{title:"Profile",user : req.session.authUser});
 });
-router.get('/book-tickets',authCustomer, async function(req, res, next) {
-    res.redirect('customer/book-tickets');
+// /book-tikets/30000
+router.get('/book-tickets/:id', async function(req, res, next) {
+    id = +req.params.id;
+    const seats = await showtimeModel.allSeats(id);
+    res.render('customer/book-tickets',{title:"Book Tickets",seats});
 });
 module.exports = router;

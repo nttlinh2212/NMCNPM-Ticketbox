@@ -8,3 +8,14 @@ NHỚ Ở CẢ MÀN HÌNH CUSTOMER HAY ADMIN ĐỀU VẬY
 -book-tickets
 -add showtimes
 -report
+31/12
+-Add showtime
+-Add film
+-book ticket<trang seats sau khi đã chọn showtime ở trang film or theater or bookfastticket
+-book fast ticket<trang chon film, theater và date sau đó hiển thị ra list of showtimes chọn 1 showtime sẽ dẫn đến trang book ticket>
+-getRevenue
+-Detail Film
+-Detail Theater
+-Sign in<authenication>
+-Sign up
+Vy: nhớ sau khi đăng nhập thì sửa lại trên nav bar có link vào profile, nhớ confirm lại password, trong sign up nhớ sửa email thành FullName

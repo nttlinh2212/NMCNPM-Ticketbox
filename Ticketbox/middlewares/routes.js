@@ -1,12 +1,14 @@
+const {authCustomer,authAdmin} = require('../middlewares/auth');
 module.exports = function(app){
     app.use('/', require('../routes/guest'));
-    app.use('/customer/', require('../routes/customer'));
-    app.use('/admin/', require('../routes/admin/index'));
-    app.use('/admin/film', require('../routes/admin/film'));
-    app.use('/admin/account', require('../routes/admin/account'));
+    app.use('/customer/',authCustomer, require('../routes/customer'));
+    app.use('/customer/cart',authCustomer, require('../routes/cart'));
+    app.use('/admin/', authAdmin,require('../routes/admin/index'));
+    app.use('/admin/film',authAdmin, require('../routes/admin/film'));
+    app.use('/admin/account',authAdmin, require('../routes/admin/account'));
     //app.use('/admin/report', require('../routes/admin/report'));
-    app.use('/admin/showtime', require('../routes/admin/showtime'));
-    app.use('/admin/theater', require('../routes/admin/theater'));
+    app.use('/admin/showtime', authAdmin, require('../routes/admin/showtime'));
+    app.use('/admin/theater',authAdmin, require('../routes/admin/theater'));
 
     // catch 404 and forward to error handler
     app.use(function(req, res) {
