@@ -22,39 +22,25 @@
               <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <a href="/admin/showtime/add"><button type="button" class="btn btn-primary">Add Showtime</button></a>
                 <!-- <h1 class="h3 mb-2 text-gray-800">Tables</h1> -->
 
                 <!-- Show Data -->
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Select Options To View & Edit Showtimes</h6>
+                    <h6 class="m-0 font-weight-bold text-primary text-center">
+                    </h6>
                   </div>
 
                   <div class="card-body">
                     <div class="card-body">
                       <div class="container">
-                        <form action="/admin/showtime/view_edit" method="post">
-                          <div class="form-group">
-                            <label for="theater">Theater</label>
-                            <select name="idtheater" id="theater">
-                              <% theaters.forEach(function(itemTheater){ %>
-                                <option value="<%= itemTheater.id %>">
-                                  <%= itemTheater.name %>
-                                </option>
-                                <% }); %>
-                            </select>
-                            <br>
-                            <br>
-                            <label for="birthday">The Beginning Day:</label>
-                            <input type="date" id="beginningday" name="beginningday" style="margin-right:70px ;">
-
-                            <label for="">The End Day</label>
-                            <input type="date" id="endday" name="endday">
-                          </div>
+                        <div class="form-group">
+                          <h2>Số lượng showtimes đã thêm : <%= result %>
+                          </h2>
+                          <a href="/admin/showtime/add"><button class="btn btn-primary" style="width: 100%;">Return to
+                              ADD site</button></a>
+                        </div>
                       </div>
-                      <button type="submit" class="btn btn-primary" style="width: 100%;">View & Edit Showtimes</button>
-                      </form>
                     </div>
                   </div>
                 </div>

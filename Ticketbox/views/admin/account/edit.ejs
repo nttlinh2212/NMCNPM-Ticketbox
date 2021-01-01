@@ -33,7 +33,7 @@
                         <div class="form-group">
                           <label for="">Id</label>
                           <input type="text" name="id" id="" class="form-control" value="<%= users.id %>"
-                            aria-describedby="helpId">
+                            aria-describedby="helpId" readonly>
                           <label for="">Name</label>
                           <input type="text" name="fullname" id="" class="form-control" value="<%= users.fullname %>"
                             aria-describedby="helpId">
@@ -42,9 +42,6 @@
                             aria-describedby="helpId">
                           <label for="">Username</label>
                           <input type="text" name="username" id="" class="form-control" value="<%= users.username %>"
-                            aria-describedby="helpId">
-                          <label for="">Password</label>
-                          <input type="text" name="password" id="" class="form-control" value="<%= users.password %>"
                             aria-describedby="helpId">
                           <label for="">Phone</label>
                           <input type="text" name="phone" id="" class="form-control" value="<%= users.phone %>"
@@ -55,9 +52,18 @@
                           <label for="">Favourite genre</label>
                           <input type="text" name="favouriteGenre" id="" class="form-control"
                             value="<%= users.favouriteGenre %>" aria-describedby="helpId">
-                          <label for="">Is admin</label>
-                          <input type="text" name="isadmin" id="" class="form-control" value="<%= users.isadmin %>"
-                            aria-describedby="helpId">
+                          <label for="isadmin">Is admin:</label>
+                          <% if(users.isadmin===1){ %>
+                            <select id="isadmin" name="isadmin" class="form-control">
+                              <option value="1" selected>Yes</option>
+                              <option value="0">No</option>
+                            </select>
+                            <% } else{ %>
+                              <select id="isadmin" name="isadmin" class="form-control">
+                                <option value="1">Yes</option>
+                                <option value="0" selected>No</option>
+                              </select>
+                              <% } %>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width: 100%;">Save changes</button>
                       </form>

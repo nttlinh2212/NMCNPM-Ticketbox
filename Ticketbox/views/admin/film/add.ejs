@@ -29,40 +29,43 @@
 
                                     <div class="card-body">
                                         <div class="container">
-                                            <form action="/admin/film/add" method="post">
+                                            <form action="/admin/film/add" method="POST" enctype="multipart/form-data">
                                                 <div class="form-group">
-                                                    <label for="">Id</label>
-                                                    <input type="text" name="id" id="" class="form-control"
-                                                        aria-describedby="helpId">
                                                     <label for="">Title</label>
                                                     <input type="text" name="title" id="" class="form-control"
-                                                         aria-describedby="helpId">
+                                                        aria-describedby="helpId">
                                                     <label for="">Description</label>
                                                     <input type="text" name="description" id="" class="form-control"
-                                                         aria-describedby="helpId">
+                                                        aria-describedby="helpId">
                                                     <label for="">Duration</label>
                                                     <input type="text" name="duration" id="" class="form-control"
-                                                         aria-describedby="helpId">
+                                                        aria-describedby="helpId">
                                                     <label for="">Genre</label>
                                                     <input type="text" name="genre" id="" class="form-control"
-                                                         aria-describedby="helpId">
+                                                        aria-describedby="helpId">
                                                     <label for="">Director</label>
                                                     <input type="text" name="director" id="" class="form-control"
-                                                         aria-describedby="helpId">
+                                                        aria-describedby="helpId">
                                                     <label for="">Cast</label>
                                                     <input type="text" name="Cast" id="" class="form-control"
-                                                         aria-describedby="helpId">
+                                                        aria-describedby="helpId">
                                                     <label for="">Release date</label>
-                                                    <input type="text" name="releasedate" id="" class="form-control"
-                                                         aria-describedby="helpId">
+                                                    <input type="date" name="releasedate" id="" class="form-control"
+                                                        aria-describedby="helpId" required>
                                                     <label for="">Language</label>
                                                     <input type="text" name="language" id="" class="form-control"
-                                                         aria-describedby="helpId">
-                                                    <label for="">Link Film</label>
-                                                    <input type="text" name="linkFilm" id="" class="form-control"
-                                                         aria-describedby="helpId">
+                                                        aria-describedby="helpId">
+                                                    <br>
+                                                    <label for="">Upload Image</label>
+                                                    <input type="file" name="file" id="" accept="image/*" class=""
+                                                        onchange="previewFile(this);" aria-describedby="helpId" required>
+                                                    </p>
+                                                    <img id="previewImg" src="" style="width: 200px; height: auto;">
+                                                    <p>
+                                                        <button type="submit" class="btn btn-primary"
+                                                            style="width: 100%;">Add
+                                                            Film</button>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary" style="width: 100%;">Add Film</button>
                                             </form>
                                         </div>
                                     </div>

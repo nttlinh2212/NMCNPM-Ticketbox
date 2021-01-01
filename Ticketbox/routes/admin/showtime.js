@@ -9,8 +9,8 @@ router.get('/', async function (req, res) {
   console.log(list);
   res.render('admin/showtime/index', {
     showtimes: list,
-    films : await filmModel.all(),
-    theaters : await theaterModel.all(),
+    films: await filmModel.all(),
+    theaters: await theaterModel.all(),
     empty: list.length === 0
   });
 })
@@ -19,7 +19,7 @@ router.get('/edit/:id', async function (req, res) {
   const id = req.params.id;
   const showtimes = await showtimeModel.searchBy(parseInt(id));
   films = await filmModel.all(),
-  theaters = await theaterModel.all()
+    theaters = await theaterModel.all()
   console.log(id);
   console.log(showtimes);
 
@@ -51,43 +51,76 @@ router.post('/edit', async function (req, res, next) {
 
   res.redirect('/admin/showtime');
 })
+
+
 // cach goi $.getJSON(`/add-showtimes?idfilm=10000&idtheater=10000&starttime=8:00:00&begindate=01/01/2020&enddate=5/1/2020&ignore=true`)
 router.get('/add-showtimes', async function (req, res) {
   console.log(req.query);
-  const {idfilm, idtheater, starttime, begindate, enddate, ignore} = req.query;
+  const { idfilm, idtheater, starttime, begindate, enddate, ignore } = req.query;
   res.json(await showtimeModel.addshowtimes(idfilm, idtheater, starttime, begindate, enddate, ignore));
   //return so luong showtimes da add
 })
 
+router.post('/add', async function (req, res) {
+  var beginningday = req.body.beginningday.split("-");
+  var endday = req.body.endday.split("-");
+  beginningday = beginningday[2] + "/" + beginningday[1] + "/" + beginningday[0];
+  endday = endday[2] + "/" + endday[1] + "/" + endday[0];
+  var ignore = true;
+  if(req.body.ignore == undefined){
+    ignore = false;
+    console.log("FALSE");
+    console.log("FALSE");
+    console.log("FALSE");
+    console.log("FALSE");
+    console.log("FALSE");
+  }
+  const showtime = {
+    idtheater: parseInt(req.body.idtheater),
+    idfilm: parseInt(req.body.idfilm),
+    starttime: req.body.starttime,
+    begindate: beginningday,
+    enddate: endday,
+    ignore: ignore
+  }
+  console.log(showtime);
+  var result = await showtimeModel.addshowtimes(showtime.idfilm, showtime.idtheater, showtime.starttime, showtime.begindate, showtime.enddate, showtime.ignore);
+  //return so luong showtimes da add
+  console.log(result);
+  res.render('admin/showtime/addResult', {
+    result
+  });
+})
+
+
+
 router.get('/add', async function (req, res) {
   const theaters = await theaterModel.all();
   const films = await filmModel.all();
-  console.log(theaters);
-  console.log(films);
-  res.render('admin/showtime/add',{
+  res.render('admin/showtime/add', {
     films,
     theaters
   });
 })
 
-router.post('/add', async function (req, res) {
-  const showtime = {
-    // id: parseInt(req.body.id),
-    idtheater: parseInt(req.body.idtheater),
-    idfilm: parseInt(req.body.idfilm),
-    starttime: req.body.starttime,
-    numberofrows: parseInt(req.body.numberofrows),
-    numberofcolumns: parseInt(req.body.numberofcolumns),
-    date: req.body.date
-  }
+// router.post('/add', async function (req, res) {
+//   const showtime = {
+//     // id: parseInt(req.body.id),
+//     idtheater: parseInt(req.body.idtheater),
+//     idfilm: parseInt(req.body.idfilm),
+//     starttime: req.body.starttime,
+//     numberofrows: parseInt(req.body.numberofrows),
+//     numberofcolumns: parseInt(req.body.numberofcolumns),
+//     date: req.body.date
+//   }
 
-  console.log(showtime)
-  const result = await showtimeModel.add(showtime);
-  if (result.length === 0) { console.log("Add", showtime.idshowtime, "fail"); }
-  console.log("Add", showtime.idshowtime, "sucessful");
+//   console.log(showtime)
+//   const result = await showtimeModel.add(showtime);
+//   if (result.length === 0) { console.log("Add", showtime.idshowtime, "fail"); }
+//   console.log("Add", showtime.idshowtime, "sucessful");
 
-  res.redirect('/admin/showtime');
-})
+//   res.redirect('/admin/showtime');
+// })
 
 router.post('/delete', async function (req, res) {
   console.log("Delete");
