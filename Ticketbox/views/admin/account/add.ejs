@@ -31,9 +31,6 @@
                                         <div class="container">
                                             <form action="/admin/account/add" method="post">
                                                 <div class="form-group">
-                                                    <label for="">Id</label>
-                                                    <input type="text" name="id" id="" class="form-control"
-                                                        aria-describedby="helpId">
                                                     <label for="">Name</label>
                                                     <input type="text" name="fullname" id="" class="form-control"
                                                         aria-describedby="helpId">
@@ -44,7 +41,7 @@
                                                     <input type="text" name="username" id="" class="form-control"
                                                         aria-describedby="helpId">
                                                     <label for="">Password</label>
-                                                    <input type="text" name="password" id="" class="form-control"
+                                                    <input type="password" name="password" id="" class="form-control"
                                                         aria-describedby="helpId">
                                                     <label for="">Phone</label>
                                                     <input type="text" name="phone" id="" class="form-control"
@@ -55,11 +52,14 @@
                                                     <label for="">Favourite genre</label>
                                                     <input type="text" name="favouriteGenre" id="" class="form-control"
                                                         aria-describedby="helpId">
-                                                    <label for="">Is admin</label>
-                                                    <input type="text" name="isadmin" id="" class="form-control"
-                                                        aria-describedby="helpId">
+                                                    <label for="isadmin">Is admin:</label>
+                                                    <select id="isadmin" name="isadmin" class="form-control">
+                                                        <option value="1">Yes</option>
+                                                        <option value="0">No</option>
+                                                    </select>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary" style="width: 100%;">Add
+                                                <button type="submit" class="btn btn-primary"
+                                                    style="width: 100%;">Add
                                                     User</button>
                                             </form>
                                         </div>

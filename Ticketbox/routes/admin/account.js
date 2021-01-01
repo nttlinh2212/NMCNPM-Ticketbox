@@ -16,7 +16,7 @@ router.get('/edit/:id',authAdmin, async function (req, res) {
   const id = req.params.id;
   const users = await userModel.searchBy(parseInt(id));
   // console.log(id);
-  // console.log(users);
+  console.log(users);
   if (users === null) {
     return res.redirect('/admin/account');
   }
@@ -33,7 +33,6 @@ router.post('/edit',authAdmin, async function (req, res, next) {
     fullname: req.body.fullname,
     dob: req.body.dob,
     username: req.body.username,
-    password: req.body.password,
     phone: req.body.phone,
     point: req.body.point,
     favouriteGenre: req.body.favouriteGenre,
@@ -53,7 +52,6 @@ router.get('/add',authAdmin, function (req, res) {
 
 router.post('/add',authAdmin, async function (req, res) {
   const user = {
-    id: parseInt(req.body.id),
     fullname: req.body.fullname,
     dob: req.body.dob,
     username: req.body.username,
@@ -74,13 +72,6 @@ router.post('/add',authAdmin, async function (req, res) {
 
 
 router.post('/delete',authAdmin, async function (req, res) {
-  console.log("Delete");
-  console.log("Delete");
-  console.log("Delete");
-  console.log(req.body.id_del);
-  console.log(typeof (req.body.id_del));
-  console.log(parseInt(req.body.id_del));
-
   const result = await userModel.del(req.body.id_del);
   if (result.length === 0)
     console.log("Delete", result.id, "fail");

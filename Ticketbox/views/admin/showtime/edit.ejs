@@ -31,46 +31,69 @@
                     <div class="container">
                       <form action="/admin/showtime/edit" method="post">
                         <div class="form-group">
-                          <label for="">Id Showtime</label>
-                          <input type="text" name="id" id="" class="form-control" aria-describedby="helpId"
-                            value="<%= showtimes.id %>" readonly>
-                            <br>
-                            <label for="theater">Theater</label>
-                            <select name="idtheater" id="theater">
-                            <%
-                                theaters.forEach(function(itemTheater){
-                                    %>
-                                    <option value="<%= itemTheater.id %>"><%= itemTheater.name %></option>
-                                    <%
-                                });
-                            %>
-                            </select>
-                            <br>
-                            <br>
-                            <label for="film">Film</label>
-                            <select name="idfilm" id="film">
-                            <%
-                                films.forEach(function(itemFilm){
-                                    %>
-                                    <option value="<%= itemFilm.id %>"><%= itemFilm.title %></option>
-                                    <%
-                                });
-                            %>
-                            </select>
-                            <br>
-                            <br>
-                          <label for="">Start Time</label>
-                          <input type=" text" name="starttime" id="" class="form-control" aria-describedby="helpId"
-                            value="<%= showtimes.starttime %>">
-                          <label for="">Number of Rows</label>
-                          <input type=" text" name="numberofrows" id="" class="form-control" aria-describedby="helpId"
-                            value="<%= showtimes.numberofrows %>">
-                          <label for="">Number of Columns</label>
-                          <input type=" text" name="numberofcolumns" id="" class="form-control"
-                            aria-describedby="helpId" value="<%= showtimes.numberofcolumns %>">
-                          <label for="">Date</label>
-                          <input type=" text" name="date" id="" class="form-control" aria-describedby="helpId"
-                            value="<%= showtimes.date %>">
+                          <label for="theater">Theater</label>
+                          <select name="idtheater" id="theater">
+                            <% theaters.forEach(function(itemTheater){ %>
+                              <option value="<%= itemTheater.id %>">
+                                <%= itemTheater.name %>
+                              </option>
+                              <% }); %>
+                          </select>
+                          <br>
+                          <br>
+                          <label for="film">Film</label>
+                          <select name="idfilm" id="film">
+                            <% films.forEach(function(itemFilm){ %>
+                              <option value="<%= itemFilm.id %>">
+                                <%= itemFilm.title %>
+                              </option>
+                              <% }); %>
+                          </select>
+                          <br>
+                          <br>
+
+                          <label for="birthday">The Beginning Day:</label>
+                          <input type="date" id="beginningday" name="beginningday" style="margin-right:70px ;">
+
+                          <label for="">The End Day</label>
+                          <input type="date" id="endday" name="endday">
+
+                          <div style="padding-left : 30px;">
+                            <input type="checkbox" onClick="toggle(this)">
+                            <label for="starttime1">Select All</label><br>
+
+                            <input type="checkbox" id="starttime1" name="starttime1" value="08:00:00"
+                              class="checkboxshowtime">
+                            <label for="starttime1">08:00:00</label><br>
+
+                            <input type="checkbox" id="starttime2" name="starttime2" value="10:00:00"
+                              class="checkboxshowtime">
+                            <label for="starttime2">10:00:00</label><br>
+
+                            <input type="checkbox" id="starttime3" name="starttime3" value="12:00:00"
+                              class="checkboxshowtime">
+                            <label for="starttime3">12:00:00</label><br>
+
+                            <input type="checkbox" id="starttime4" name="starttime4" value="14:00:00"
+                              class="checkboxshowtime">
+                            <label for="starttime4">14:00:00</label><br>
+
+                            <input type="checkbox" id="starttime5" name="starttime5" value="16:00:00"
+                              class="checkboxshowtime">
+                            <label for="starttime5">16:00:00</label><br>
+
+                            <input type="checkbox" id="starttime6" name="starttime6" value="18:00:00"
+                              class="checkboxshowtime">
+                            <label for="starttime6">18:00:00</label><br>
+
+                            <input type="checkbox" id="starttime7" name="starttime7" value="20:00:00"
+                              class="checkboxshowtime">
+                            <label for="starttime7">20:00:00</label><br>
+
+                            <input type="checkbox" id="starttime8" name="starttime8" value="22:00:00"
+                              class="checkboxshowtime">
+                            <label for="starttime8">22:00:00</label><br>
+                          </div>
                         </div>
                         <button type=" submit" class="btn btn-primary" style="width: 100%;">Save changes</button>
                       </form>

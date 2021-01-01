@@ -9,6 +9,7 @@ module.exports = function(app){
     //app.use('/admin/report', require('../routes/admin/report'));
     app.use('/admin/showtime', authAdmin, require('../routes/admin/showtime'));
     app.use('/admin/theater',authAdmin, require('../routes/admin/theater'));
+    app.use('/admin/report',authAdmin, require('../routes/admin/report'));
 
     // catch 404 and forward to error handler
     app.use(function(req, res) {

@@ -1,7 +1,18 @@
 var express = require('express');
 var router = express.Router();
+var multer = require('multer');
 const filmModel = require('../../models/film');
-const {authAdmin} = require('../../middlewares/auth');
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/images/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+
+var upload = multer({ storage: storage })
 
 router.get('/', async function (req, res) {
   const list = await filmModel.all();
@@ -26,8 +37,9 @@ router.get('/edit/:id', async function (req, res) {
   });
 })
 
-router.post('/edit', async function (req, res, next) {
+router.post('/edit', upload.single('file'), async function (req, res, next) {
   const film = {
+    id: parseInt(req.body.id),
     title: req.body.title,
     description: req.body.description,
     duration: parseInt(req.body.duration),
@@ -36,25 +48,23 @@ router.post('/edit', async function (req, res, next) {
     Cast: req.body.Cast,
     releasedate: req.body.releasedate,
     language: req.body.language,
-    linkFilm: req.body.linkFilm
+    linkFilm: "/images/" + req.file.filename
   }
 
   const result = await filmModel.update(film);
   if (result.length === 0) { console.log("Edit", id, "fail"); }
-  console.log("Edit", film.id, "sucessful");
 
+  console.log("Edit", film.id, "sucessful");
   res.redirect('/admin/film');
 })
-
-
 
 router.get('/add', async function (req, res) {
   res.render('admin/film/add');
 })
 
-router.post('/add', async function (req, res) {
+router.post('/add', upload.single('file'), async function (req, res, next) {
+
   const film = {
-    
     title: req.body.title,
     description: req.body.description,
     duration: parseInt(req.body.duration),
@@ -63,14 +73,13 @@ router.post('/add', async function (req, res) {
     Cast: req.body.Cast,
     releasedate: req.body.releasedate,
     language: req.body.language,
-    linkFilm: req.body.linkFilm
+    linkFilm: "/images/" + req.file.filename
   }
 
-  console.log(film)
+  console.log(film);
   const result = await filmModel.add(film);
-  if (result.length === 0) { console.log("Delete", id, "fail"); }
+  if (result.length === 0) { console.log("Add", id, "fail"); }
   console.log("Add", film.id, "sucessful");
-
   res.redirect('/admin/film');
 })
 

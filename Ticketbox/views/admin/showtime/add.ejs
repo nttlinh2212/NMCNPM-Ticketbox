@@ -33,41 +33,51 @@
                                                 <div class="form-group">
                                                     <label for="theater">Theater</label>
                                                     <select name="idtheater" id="theater">
-                                                    <%
-                                                        theaters.forEach(function(itemTheater){
-                                                            %>
-                                                            <option value="<%= itemTheater.id %>"><%= itemTheater.name %></option>
-                                                            <%
-                                                        });
-                                                    %>
+                                                        <% theaters.forEach(function(itemTheater){ %>
+                                                            <option value="<%= itemTheater.id %>">
+                                                                <%= itemTheater.name %>
+                                                            </option>
+                                                            <% }); %>
                                                     </select>
                                                     <br>
                                                     <br>
                                                     <label for="film">Film</label>
                                                     <select name="idfilm" id="film">
-                                                    <%
-                                                        films.forEach(function(itemFilm){
-                                                            %>
-                                                            <option value="<%= itemFilm.id %>"><%= itemFilm.title %></option>
-                                                            <%
-                                                        });
-                                                    %>
+                                                        <% films.forEach(function(itemFilm){ %>
+                                                            <option value="<%= itemFilm.id %>">
+                                                                <%= itemFilm.title %>
+                                                            </option>
+                                                            <% }); %>
                                                     </select>
                                                     <br>
                                                     <br>
-                                                    <label for="">Start Time</label>
-                                                    <input type="text" name="starttime" id="" class="form-control"
-                                                        aria-describedby="helpId">
-                                                    <label for="">Number of Rows</label>
-                                                    <input type="text" name="numberofrows" id="" class="form-control"
-                                                        aria-describedby="helpId">
-                                                    <label for="">Number of Columns</label>
-                                                    <input type="text" name="numberofcolumns" id="" class="form-control"
-                                                        aria-describedby="helpId">
-                                                    <label for="">Date</label>
-                                                    <input type="text" name="date" id="" class="form-control"
-                                                        aria-describedby="helpId">
+
+                                                    <label for="birthday">The Beginning Day:</label>
+                                                    <input type="date" id="beginningday" name="beginningday"
+                                                        style="margin-right:70px ;">
+
+                                                    <label for="">The End Day</label>
+                                                    <input type="date" id="endday" name="endday">
+                                                    <br>
+                                                    <input type="checkbox" id="ignore" name="ignore" value="1">
+                                                    <label for="ignore">Ignore showtimes that are used
+                                                    </label><br>
+
+                                                    <label for="starttime">Start Time</label>
+                                                    <select id="starttime" name="starttime">
+                                                        <option value="08:00:00">08:00:00</option>
+                                                        <option value="10:00:00">10:00:00</option>
+                                                        <option value="12:00:00">12:00:00</option>
+                                                        <option value="14:00:00">14:00:00</option>
+                                                        <option value="16:00:00">16:00:00</option>
+                                                        <option value="18:00:00">18:00:00</option>
+                                                        <option value="20:00:00">20:00:00</option>
+                                                        <option value="22:00:00">22:00:00</option>
+                                                    </select>
+                                                    <br>
+
                                                 </div>
+
                                                 <button type="submit" class="btn btn-primary" style="width: 100%;">Add
                                                     Showtime</button>
                                             </form>
@@ -75,26 +85,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- End of Main Content -->
-
-                            <!-- Footer -->
-                            <% include ../footer%>
-                                <!-- End of Footer -->
                     </div>
-                    <!-- End of Content Wrapper -->
+                    <!-- End of Main Content -->
+
+                    <!-- Footer -->
+                    <% include ../footer%>
+                        <!-- End of Footer -->
                 </div>
-                <!-- End of Page Wrapper -->
+                <!-- End of Content Wrapper -->
+        </div>
+        <!-- End of Page Wrapper -->
 
-                <!-- Scroll to Top Button-->
-                <a class="scroll-to-top rounded" href="#page-top">
-                    <i class="fas fa-angle-up"></i>
-                </a>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 
-                <!-- Logout Modal-->
-                <% include ../logout %>
+        <!-- Logout Modal-->
+        <% include ../logout %>
 
-                    <!-- Add Javascript-->
-                    <% include ../javascripts-addon %>
+            <!-- Add Javascript-->
+            <% include ../javascripts-addon %>
     </body>
 
     </html>
