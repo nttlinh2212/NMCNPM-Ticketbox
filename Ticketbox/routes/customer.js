@@ -8,8 +8,8 @@ const showtimeModel = require('../models/showtime');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/profile',async function(req, res, next) {
-    res.render('customer/profile',{title:"Profile",user : req.session.authUser});
+router.get('/profile', async function(req, res, next) {
+    res.render('customer/profile', { title: "Profile", user: req.session.authUser });
 });
 // /book-tikets/30000
 router.get('/book-tickets/:id', async function(req, res, next) {
@@ -18,7 +18,7 @@ router.get('/book-tickets/:id', async function(req, res, next) {
     const theater = await theaterModel.searchBy(showtime.idtheater);
     const film = await filmModel.searchBy(showtime.idfilm)
     const seats = await showtimeModel.allSeats(id);
-    console.log(JSON.stringify(film)+JSON.stringify(theater)+JSON.stringify(showtime)+'hre');
-    res.render('customer/book-tickets',{title:"Book Tickets",seats,showtime,theater,film});
+    console.log(JSON.stringify(film) + JSON.stringify(theater) + JSON.stringify(showtime) + 'hre');
+    res.render('customer/book-tickets', { title: "Book Tickets", seats, showtime, theater, film });
 });
 module.exports = router;

@@ -1,14 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> </title>
-</head>
-<body>
-    <%= JSON.stringify(seats) %> 
-    <%= JSON.stringify(film) %>
-    <%= JSON.stringify(showtime) %>
-    <%= JSON.stringify(theater) %>
-</body>
-</html>
+<%- include('../layouts/head') %>
+
+    <body>
+        <header>
+            <%- include('../layouts/header') %>
+        </header>
+
+        <main class="main main-raised">
+            <div class="container">
+                <div class="section">
+                    <div class="row justify-content-center mb-5">
+                        <div class="col-md-16">
+                            <div class="form-group">
+                                <div class="text-center">
+                                    <h3>Please choose a seat</h3>
+                                </div>
+                                <form id="frmSeats" method="POST">
+                                    <input id="showtimeID" type="hidden" value="<%= showtime.id %>">
+                                    <% seats.forEach(element => { %>
+                                        <div class="row">
+                                            <% element.forEach(seat => { %>
+                                                <div class="col ">
+                                                    <% if(seat.status == null && seat.ticketprice != 40000){ %>
+                                                        <button type="submit " value="<%=String(seat.idrow) + String(seat.idcolumn) + 'vip' %>" class="btn btn-rose btn-fab btn-round"><img src="/images/seat1.png"></button>
+                                                        <% } else if(seat.status == null) { %>
+                                                            <button type="submit" value="<%= String(seat.idrow) + String(seat.idcolumn) + 'norm' %>" class="btn btn-info btn-fab btn-round"><img src="/images/seat1.png"></button>
+                                                            <% } else{ %>
+                                                                <button type="submit" disabled value="<%= String(seat.idrow) + String(seat.idcolumn) + 'taken' %>" class="btn btn-fab btn-round"><img src="/images/seat1.png"></button>
+                                                                <% } %>
+                                                </div>
+                                                <% }) %>
+                                        </div>
+                                        <% }) %>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section">
+                        <div class="row justify-content-center mb-5">
+                            <div class="col-md-16">
+                                <div class="card card-nav-tabs">
+                                    <div class="card-header card-header-primary">
+                                        <h3>Ticket information</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <h4>Film:
+                                                    <%= film.title %>
+                                                </h4>
+                                            </div>
+                                            <div class="col-4">
+                                                <h4>Date:
+                                                    <%= showtime.date %>
+                                                </h4>
+                                            </div>
+                                            <div class="col-4">
+                                                <h4 id="seats">Seat: </h4>
+                                            </div>
+                                            <div class="col-4">
+                                                <h4>Theater:
+                                                    <%= theater.name %>
+                                                </h4>
+                                            </div>
+                                            <div class="col-4">
+                                                <h4>Start time:
+                                                    <%= showtime.starttime %>
+                                                </h4>
+                                            </div>
+                                            <div class="col-4">
+                                                <h4 id="price">Price: </h4>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-md-16"><button class="btn btn-success">Book</button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <%- include('../layouts/footer') %>
+        </footer>
+        <%- include('../layouts/scripts') %>
+            <script>
+                $(function() {
+                    $('#datepicker').datetimepicker({
+                        format: 'DD/MM/YYYY'
+                    });
+                });
+            </script>
+            <script src="/javascripts/book-tickets.js"></script>
+    </body>
+
+    </html>
