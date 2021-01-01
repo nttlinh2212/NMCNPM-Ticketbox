@@ -4,6 +4,7 @@ const theaterModel = require('../models/theater');
 const userModel = require('../models/user');
 const showtimeModel = require('../models/showtime');
 const bcrypt = require('bcryptjs');
+const moment = require("moment");
 
 var router = express.Router();
 
@@ -51,12 +52,18 @@ router.post('/signin', async function(req, res) {
 router.get('/signup', async function(req, res) {
     res.render('guest/signup');
 });
-router.post('/signup', async function(req, res) {
+
+router.get('/book-fast-tickets', async function (req, res){
+  const films = await filmModel.all();
+  const theaters = await theaterModel.all();
+  res.render('guest/book-fast-tickets',{title:"Book fast tickets",films,theaters});
+});
+router.post('/signup', async function (req, res) {
     const hash = bcrypt.hashSync(req.body.password, 10);
     //const dob = moment(req.body.dob, 'DD/MM/YYYY').format('YYYY-MM-DD');
     const user = {
         username: req.body.username,
-        password: hash,
+        password: hash, 
         fullname: req.body.fullname,
         permission: 0
     }
@@ -74,7 +81,7 @@ router.get('/is-available', async function(req, res) {
 
     res.json(false);
 })
-router.post('/logout', async function(req, res) {
+router.get('/logout', async function(req, res) {
         req.session.auth = false;
         req.session.authUser = null;
         req.session.retUrl = null;
@@ -82,6 +89,14 @@ router.post('/logout', async function(req, res) {
         const url = req.headers.referer || '/';
         res.redirect(url);
     })
+
+router.get('/get-all-showtimes', async function(req, res) {
+    console.log(req.query);
+    date = moment( req.query.date, 'DD/MM/YYYY').format('YYYY-MM-DD');
+    const showtimes = await showtimeModel.allShowtimesByTF(req.query.theater, req.query.film,date);
+    console.log(showtimes);
+    res.json(showtimes);
+})    
     //cach goi $.getJSON(`/showtimes-groupby-theater?id=10000&date=1/1/2021`
 router.get('/showtimes-groupby-theater', async function(req, res) {
     console.log(req.query);
@@ -106,8 +121,8 @@ router.get('/film', async function(req, res, next) {
         console.log('Not found Film');
         return res.redirect('/');
     }
-    const showtimes = await showtimeModel.allShowtimesByFilmGroupByTheater(film.id);
-    res.render('guest/film', { title: film.title, film, releasedate: film.releasedate });
+    //const showtimes = await showtimeModel.allShowtimesByFilmGroupByTheater(film.id);
+    res.render('guest/film', { title: film.title, film, releasedate: film.releasedate});
 });
 //duong dan den film co dang href='/film/10000'
 router.get('/theater/:id', async function(req, res, next) {
@@ -119,7 +134,7 @@ router.get('/theater/:id', async function(req, res, next) {
         console.log('Not found Theater');
         return res.redirect('/');
     }
-    const showtimes = await showtimeModel.allShowtimesByTheaterGroupByFilm(theater.id);
+    //const showtimes = await showtimeModel.allShowtimesByTheaterGroupByFilm(theater.id);
     console.log(JSON.stringify(showtimes));
     res.render('guest/theater', { title: theater.name, theater });
 });

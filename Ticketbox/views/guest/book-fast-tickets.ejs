@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title><%= title %> </title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+    <style>
+        .bg-image-clone {
+        background-image: url('/images/bg_bft1.jpg');
+        background-size: cover;
+        background-position: right;
+        }
+        
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script> 
+    
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <%- include('../layouts/navbar') %>
+        <div class="row no-gutter bg-image-clone">
+            <div class="d-none d-md-flex col-md-4 col-lg-7 ">
+                &nbsp;
+            </div>
+            <div class="col-md-8 col-lg-5">
+                <div class="login d-flex align-items-center py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="card">
+                                <h5 class="card-header d-flex justify-content-center text-primary" >BOOK FAST TICKETS</h5>
+                                <div class="card-body">
+                                  <form>
+                                    <div class="form-group row">
+                                        <label for="film" class="col-sm-3 col-form-label">Film</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="film" name="film">
+                                        
+                                                <% films.forEach(element => { %>
+                                                    <option value = '<%=element.id%>' ><%= element.title %> </option>
+                                                <% }) %>
+                                                
+                                            </select>
+                                        </div>
+                                      </div>
+                                      <div class="form-group row">
+                                        <label for="theater" class="col-sm-3 col-form-label">Theater</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="theater" name="theater">
+                                                <% theaters.forEach(element => { %>
+                                                    <option value = '<%=element.id%>'><%= element.name %> </option>
+                                                <% }) %>
+                                                
+                                            </select>
+                                        </div>
+                                      </div>
+                                      
+                                      <div class="form-group row">
+                                        <label for="txtDate" class="col-sm-3 col-form-label">Date</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="txtDate" value="1/1/2020" name="date">
+                                        </div>
+                                       
+                                      </div>
+                                      <div class="form-group row">
+                                        <label for="Showtime" class="col-sm-3 col-form-label">Showtime</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="showtime" name="Showtime">
+                                               
+                                            </select>
+                                        </div>
+                                      </div>
+                                      <div class="form-group row d-flex justify-content-center">
+                                        <a href="#" class="btn btn-primary" id="book" b4-fl>Booking</a>
+                                      </div>
+                                      
+                                </div>
+                              </div>
+                                
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        $('#book').click(function (e) {
+            var optionSelected = $(showtime).find("option:selected");
+            var valueSelected  = optionSelected.val();
+            //alert($('#book').attr("href"));
+            if(valueSelected){
+                $('#book').attr("href","/customer/book-tickets/"+valueSelected);
+            }
+            else
+                alert("Please choose a showtime to book");
+        });
+        $('#film,#theater,#txtDate').change (function (e) {
+
+          const film = $('#film').val();
+          const theater = $('#theater').val();
+          const date = $('#txtDate').val();
+          send = {film,theater,date};
+    
+            
+          $.getJSON(`/get-all-showtimes`, send,function (data) {
+                // $('#showtime').click(function(e){
+                //     alert("fsdf");
+                // });
+              if(data){
+                $.each(data, function (i, item) {
+                    //alert(JSON.stringify(item)+item.id+item.starttime);
+                    $('#showtime').append($('<option>', { 
+                        value: item.id,
+                        text : item.starttime
+                    }));
+                    });
+              }
+
+              
+          })
+        });
+        $('#txtDate').datetimepicker({
+          format: 'd/m/Y',
+          timepicker: false,
+          mask: true,
+        });
+      </script>
+    
+    </body>
