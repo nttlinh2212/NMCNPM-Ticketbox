@@ -57,7 +57,6 @@ module.exports = {
   
   async allShowtimesByFilmGroupByTheater1(idfilm,date) {
     var mysqlDate = moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD');
-    //moment(date).format('YYYY-MM-DD');
     console.log(mysqlDate);
     const sql = `SELECT s.idtheater FROM showtime s where idfilm = ${idfilm} and date ='${mysqlDate}' group by s.idtheater order by s.idtheater asc `;
     const [rows, fields] = await db.load(sql);
@@ -117,42 +116,45 @@ module.exports = {
         return null;
       return rows[0];
   },
-  async findBy(idfilm,idtheater,starttime,date) {
-    const condition = {
-      idfilm,idtheater,starttime
-    };
-      const sql = `select * from showtime where idfilm = ${idfilm} and idtheater = ${idtheater} and starttime ='${starttime}' and date = '${date}'`;
+  async findBy(idtheater,starttime,date) {
+      const sql = `select * from showtime where idtheater = ${idtheater} and starttime ='${starttime}' and date = '${date}'`;
       const [rows, fields] = await db.load(sql);
-      //console.log(rows.length);
+      console.log(sql);
       console.log(rows+"infindby");
       if(rows.length===0)
         return null;
       return rows[0];
   },
   async addshowtimes(idfilm, idtheater, starttime, begindate, enddate, ignore) {
-    //starttime = moment.
     const arrDates = generateDate(begindate,enddate);
+    starttime = moment(starttime, 'HH:mm:ss').format('HH:mm:ss');
+    //console.log(starttime);
     let count = 0;
     for (const date of arrDates) {
-      console.log(date);
+      //console.log(date);
       const showtime = {idfilm,idtheater,starttime,date};
-      const find = await this.findBy(idfilm,idtheater,starttime,date);
-      console.log(find);
+      const find = await this.findBy(idtheater,starttime,date);
+      //console.log(find);
       if(find === null){
-        const [result, fields] = await this.add(showtime);
-        console.log("res"+result);
-        count += result.length;
+        const result = await this.add(showtime);
+        //console.log("res"+JSON.stringify(result));
+        if (result){
+          count += result.affectedRows;
+          console.log(await this.addseats(result.insertId));
+        }
+          
       }
       else{
-        if(ignore===false){
-          const [result, fields] = await this.update(showtime,{id:find.id});
-          console.log("res"+result);
-          count += result.length;
+        if(ignore==='false'){
+          const result = await this.update(showtime,{id:find.id});
+          //console.log("res"+result);
+          if (result)
+            count += result.affectedRows;
         }
         
       }
     }
-    return result;
+    return (count);
   },
 
   async add(showtime) {
@@ -160,7 +162,27 @@ module.exports = {
     // console.log(result);
     return result;
   },
-
+  async addseats(idshowtime) {
+    let count = 0;
+    for(let i = 0; i<5;i++){
+      for(let j = 0;j<8;j++){
+        seat = {idshowtime,idrow: i,idcolumn: j};
+        if(i>=2)
+          seat.ticketprice = 50000;
+        else
+          seat.ticketprice = 40000;
+        result = await this.addASeat(seat);
+        count+=result.affectedRows
+        //console.log("res" + result);
+      }
+    }
+    return count;
+  },
+  async addASeat(seat) {
+    const [result, fields] = await db.add(seat, 'seatsofshowtime');
+    // console.log(result);
+    return result;
+  },
   async del(id) {
     const condition = {
       id

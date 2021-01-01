@@ -51,11 +51,11 @@ router.post('/edit', async function (req, res, next) {
 
   res.redirect('/admin/showtime');
 })
-// cach goi $.getJSON(`/add-showtimes?idfilm=10000&idtheater=10000&starttime=8:00:00&begindate=2020/01/01&enddate=2020/01/05&ignore=true`)
+// cach goi $.getJSON(`/add-showtimes?idfilm=10000&idtheater=10000&starttime=8:00:00&begindate=01/01/2020&enddate=5/1/2020&ignore=true`)
 router.get('/add-showtimes', async function (req, res) {
   console.log(req.query);
   const {idfilm, idtheater, starttime, begindate, enddate, ignore} = req.query;
-  res.json(showtimeModel.addshowtimes(idfilm, idtheater, starttime, begindate, enddate, ignore));
+  res.json(await showtimeModel.addshowtimes(idfilm, idtheater, starttime, begindate, enddate, ignore));
   //return so luong showtimes da add
 })
 
