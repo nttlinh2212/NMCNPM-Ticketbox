@@ -21,16 +21,33 @@
                         <i class="fa fa-ticket" aria-hidden="true"></i> Book Ticket
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/signin">
-                        <i class="fa fa-sign-in" aria-hidden="true"></i> Login
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/signup">
-                        <i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up
-                    </a>
-                </li>
+                <% if(locals.auth == false){ %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signin">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signup">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up
+                        </a>
+                    </li>
+                    <% }else{ %>
+                        <li class="dropdown nav-item">
+                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                <i class="fa fa-user-circle" aria-hidden="true"></i> Hi
+                                <%= locals.authUser.fullname %>
+                            </a>
+                            <div class="dropdown-menu dropdown-with-icons">
+                                <a href="/profile" class="dropdown-item">
+                                    <i class="fas fa-user-edit    "></i> &nbsp;&nbsp; Manage Account
+                                </a>
+                                <a href="/logout" class="dropdown-item">
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;&nbsp; Sign Out
+                                </a>
+                            </div>
+                        </li>
+                        <% } %>
             </ul>
         </div>
     </div>
