@@ -2,7 +2,7 @@ $('#frmDate').on('submit', function(e) {
     e.preventDefault();
     const date = $('#datepicker').val();
     if (date === '') {
-        $('#showtimes').append('<h5>Please pick a day</h5>');
+        $('#showtimes').html('<h5>Please pick a day</h5>');
         return;
     } else {
         $('#showtimes').text("");
@@ -14,7 +14,7 @@ $('#frmDate').on('submit', function(e) {
                 $('#showtimes').append(createShowtime(element));
             });
         } else {
-            $('#showtimes').append('<h5>No showtimes on this day.</h5>');
+            $('#showtimes').html('<h5>No showtimes on this day.</h5>');
         }
     })
 });
