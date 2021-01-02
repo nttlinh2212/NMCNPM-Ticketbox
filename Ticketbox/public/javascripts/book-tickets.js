@@ -40,3 +40,15 @@ $('#frmSeats').on('submit', function(e) {
         }
     })
 });
+$('#frmCheckout').on('submit', function(e) {
+    e.preventDefault();
+    const idcus = $('#idcus').val();
+    $.getJSON(`/Customer/Cart/checkout?idcus=${idcus}`, function(data) {
+        if (data > 0) {
+            // $('#successModal').modal();
+            if (!alert('Book Ticket Successfully!')) { window.location.reload(); }
+        } else {
+            if (!alert('Sorry cannot book your tickets. Please try again!')) { window.location.reload(); }
+        }
+    })
+})
