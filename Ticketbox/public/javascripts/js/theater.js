@@ -7,8 +7,8 @@ $('#frmDate').on('submit', function(e) {
     } else {
         $('#showtimes').text("");
     }
-    const id = $('#filmid').val();
-    $.getJSON(`/showtimes-groupby-theater?id=${id}&date=${date}`, function(data) {
+    const id = $('#theaterid').val();
+    $.getJSON(`/showtimes-groupby-film?id=${id}&date=${date}`, function(data) {
         if (data != null) {
             data.forEach(element => {
                 $('#showtimes').append(createShowtime(element));
@@ -21,7 +21,7 @@ $('#frmDate').on('submit', function(e) {
 
 function createShowtime(data) {
     var html = "";
-    html += '<div class="showtime-theater"><div class="title"><h4>' + data[0].name + '</h4></div><div class="row">';
+    html += '<div class="showtime-theater"><div class="title"><h4>' + data[0].title + '</h4></div><div class="row">';
     data.forEach(element => {
         html += '<div class="col-md-2 text-center"><button class="btn"' +
             ' formaction="/customer/book-tickets/' + element.id + '">' + element.starttime.substring(0, 5) + '</button></div>';

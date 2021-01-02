@@ -8,15 +8,15 @@ $('#frmSeats').on('submit', function(e) {
     const idrow = seat.charAt(0);
     const idcol = seat.charAt(1);
     const type = seat.substring(2);
+    const price = active.data("price");
     $.getJSON(`/Customer/Cart/add?idshowtime=${showtimeid}&idrow=${idrow}&idcolumn=${idcol}`, function(data) {
         if (data === 1) {
             if (type === "vip") {
                 active.removeClass('btn-rose');
-                money += 60000;
             } else {
                 active.removeClass('btn-info');
-                money += 40000;
             }
+            money += price;
             active.addClass('btn-success');
             seats = seats + String(idrow) + String(idcol) + " ";
             $('#price').text("Price: " + String(money));
@@ -27,11 +27,10 @@ $('#frmSeats').on('submit', function(e) {
                     active.removeClass('btn-success')
                     if (type === "vip") {
                         active.addClass('btn-rose');
-                        money -= 60000;
                     } else {
                         active.addClass('btn-info');
-                        money -= 40000;
                     }
+                    money -= price;
                     seats = seats.replace(String(idrow) + String(idcol) + " ", "");
                     $('#price').text("Price: " + String(money));
                     $('#seats').text("Seat: " + seats);
