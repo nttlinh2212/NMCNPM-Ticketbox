@@ -13,6 +13,7 @@ router.get('/profile', async function(req, res, next) {
 });
 // /book-tikets/30000
 router.get('/book-tickets/:id', async function(req, res, next) {
+    req.session.cart = [];
     id = +req.params.id;
     const showtime = await showtimeModel.findByID(id);
     const theater = await theaterModel.searchBy(showtime.idtheater);

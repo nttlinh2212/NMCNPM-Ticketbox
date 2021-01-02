@@ -48,9 +48,15 @@ router.get('/remove', function(req, res) {
         res.json(result);
 
     })
-    // /checkout?idcus=10003
+    // /checkout?idcus=10003 return list check list[0] = false thi co ghe ko available va cancel book
+    // in ra list[1] = row list[2]= column of unavailableseat
+    //if list[0] = true thi book thanh cong tat ca cac seat in cart va return list[1] la so seat da book thanh cong
 router.get('/checkout', async function(req, res) {
     count = 0;
+    for (const ci of req.session.cart) {
+        if(await cartModel.isAvailableASeat(ci.idshowtime, ci.idrow, ci.idcolumn)=== null)
+            res.json([false,ci.idrow, ci.idcolumn]);
+    }
     for (const ci of req.session.cart) {
         result = await cartModel.bookASeat(ci.idshowtime, ci.idrow, ci.idcolumn, req.query.idcus);
         if (result)
@@ -58,7 +64,7 @@ router.get('/checkout', async function(req, res) {
         console.log("result" + result);
     }
     req.session.cart = [];
-    res.json(count); //number of ticket booked succesfully
+    res.json([true,count]); //number of ticket booked succesfully
 })
 
 module.exports = router;
