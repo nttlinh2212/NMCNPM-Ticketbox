@@ -7,8 +7,13 @@ const {authAdmin} = require('../../middlewares/auth');
 
 router.get('/get-revenue', async function (req, res) {
   console.log(req.query);
-  const{idfilm,idtheater,starttime,begindate,enddate} = req.query;//idfilm,idtheater,starttime,begindate,enddate
-  const result = await showtimeModel.getRevenue(idfilm,idtheater,starttime,begindate,enddate);
+
+  var beginningday = req.query.beginningday.split("-");
+  var endday = req.query.endday.split("-");
+  beginningday = beginningday[2] + "/" + beginningday[1] + "/" + beginningday[0];
+  endday = endday[2] + "/" + endday[1] + "/" + endday[0];
+
+  const result = await showtimeModel.getRevenue(req.query.idfilm,req.query.idtheater,req.query.starttime,beginningday,endday);
   console.log(result);//{sold_seat: ,total_seat: ,revenue: }
   res.json(result)
 })
