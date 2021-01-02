@@ -65,7 +65,7 @@ router.post('/signup', async function(req, res) {
         username: req.body.username,
         password: hash,
         fullname: req.body.fullname,
-        permission: 0
+        isadmin: 0
     }
 
     await userModel.add(user);
