@@ -7,19 +7,30 @@
 
         <main class="main main-raised">
             <div class="container">
-                <div class="section">
-                    <div class="row justify-content-center mb-5">
-                        <div class="col-md-16">
+                <div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-16 justify-content-center">
                             <div class="form-group">
                                 <div class="text-center">
                                     <h3>Please choose a seat</h3>
                                 </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="button" disabled class="btn btn-fab btn-round btn-just-icon-sm"><img src="/images/seat.png"></button><small>Taken</small>
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" disabled class="btn btn-info btn-fab btn-round btn-just-icon-sm"><img src="/images/seat.png"></button><small>Normal</small>
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" disabled class="btn btn-rose btn-fab btn-round btn-just-icon-sm"><img src="/images/seat.png"></button><small>VIP</small>
+                                    </div>
+                                </div>
                                 <form id="frmSeats" method="POST">
                                     <input id="showtimeID" type="hidden" value="<%= showtime.id %>">
                                     <% seats.forEach(element => { %>
-                                        <div class="row">
+                                        <div class="row input-group-sm">
                                             <% element.forEach(seat => { %>
-                                                <div class="col ">
+                                                <div class="col p-1">
                                                     <% if(seat.status == null && seat.ticketprice != 40000){ %>
                                                         <button type="submit " data-price="<%= seat.ticketprice %>" value="<%=String(seat.idrow) + String(seat.idcolumn) + 'vip' %>" class="btn btn-rose btn-fab btn-round"><img src="/images/seat1.png"></button>
                                                         <% } else if(seat.status == null) { %>
@@ -35,14 +46,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="section">
+                    <div>
                         <div class="row justify-content-center mb-5">
                             <div class="col-md-16">
                                 <div class="card card-nav-tabs">
-                                    <div class="card-header card-header-primary">
-                                        <h3>Ticket information</h3>
-                                    </div>
                                     <div class="card-body">
+                                        <h3>Ticket information</h3>
                                         <div class="row">
                                             <div class="col-4">
                                                 <h4>Film:

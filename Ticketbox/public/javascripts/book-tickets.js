@@ -43,11 +43,11 @@ $('#frmCheckout').on('submit', function(e) {
     e.preventDefault();
     const idcus = $('#idcus').val();
     $.getJSON(`/Customer/Cart/checkout?idcus=${idcus}`, function(data) {
-        if (data > 0) {
+        if (data[0] == true) {
             // $('#successModal').modal();
             if (!alert('Book Ticket Successfully!')) { window.location.reload(); }
         } else {
-            if (!alert('Sorry cannot book your tickets. Please try again!')) { window.location.reload(); }
+            if (!alert('Sorry the tickets you booked is no longer available. Please choose the others!')) { window.location.reload(); }
         }
     })
 })
