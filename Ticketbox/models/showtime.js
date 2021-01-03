@@ -145,7 +145,7 @@ module.exports = {
           
       }
       else{
-        if(ignore==='false'){
+        if(!ignore||ignore==='false'){
           const result = await this.update(showtime,{id:find.id});
           //console.log("res"+result);
           if (result)
