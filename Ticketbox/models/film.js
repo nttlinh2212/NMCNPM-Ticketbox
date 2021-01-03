@@ -34,7 +34,13 @@ module.exports = {
     return rows;  
     
   },
-
+  async full_text_search(keyword) {
+    const sql = `SELECT * FROM film
+    where match(title,cast,director) against ('${keyword}')`;
+    const [result, fields] = await db.load(sql);
+    console.log("listfilmfound: "+result);
+    return result;
+  },
   async add(film) {
     const [result, fields] = await db.add(film, 'film');
     // console.log(result);

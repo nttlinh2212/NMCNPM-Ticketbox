@@ -18,6 +18,14 @@ router.get('/', async function(req, res, next) {
     //console.log(films);
     res.render('home', { title: 'Home', films, theaters });
 });
+// getJSOn /find-films?key=anne
+router.get('/find-films', async function(req, res, next) {
+    console.log(req.query);
+    const key = req.query.key;
+    const films = await filmModel.full_text_search(key);
+    console.log(JSON.stringify(films));
+    res.json(films);
+});
 router.get('/signin', function(req, res) {
     res.render('guest/signin');
 });
