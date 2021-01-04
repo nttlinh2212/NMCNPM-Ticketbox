@@ -34,7 +34,6 @@
                 reader.onload = function () {
                     $("#previewImg").attr("src", reader.result);
                 }
-
                 reader.readAsDataURL(file);
             }
         }
@@ -44,6 +43,44 @@
             n = checkboxes.length;
             for (var i = 0; i < n; i++) {
                 checkboxes[i].checked = source.checked;
+            }
+        }
+
+
+        function validateForm() {
+            var x = document.getElementById("upload_img").value;
+            x = x.length;
+            // admin didn't upload image
+            if (x === 0) {
+                document.getElementById("form_edit").action = "/admin/film/editWithoutUploadImage";
+                document.getElementById("form_edit").enctype = "";
+                alert("Edit film successfully");
+                return true;
+            }
+            else {
+                document.getElementById("form_edit").action = "/admin/film/edit";
+                document.getElementById("form_edit").enctype = "multipart/form-data";
+                alert("Edit film successfully");
+                return true;
+            }
+        }
+
+        function submitFormAddFilm() {
+            alert("Add film successfully");
+            return true
+        }
+
+        function submitFormAddShowtime() {
+            const beginningday = $('#beginningday').val();
+            const endday = $('#endday').val();
+            var beginningdayCompare = new Date(beginningday);
+            var enddayCompare = new Date(endday);
+            if (enddayCompare >= beginningdayCompare) {
+                return true;
+            }
+            else {
+                alert(`"The End Day" is required after "The Beginning Day"`);
+                return false;
             }
         }
     </script>

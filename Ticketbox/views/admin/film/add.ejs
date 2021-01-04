@@ -29,20 +29,31 @@
 
                                     <div class="card-body">
                                         <div class="container">
-                                            <form action="/admin/film/add" method="POST" enctype="multipart/form-data">
+                                            <form action="/admin/film/add" method="POST" id="form_addFilm"
+                                                enctype="multipart/form-data" onsubmit="return submitFormAddFilm()">
                                                 <div class="form-group">
                                                     <label for="">Title</label>
-                                                    <input type="text" name="title" id="" class="form-control"
-                                                        aria-describedby="helpId">
+                                                    <input type="text" required: name="title" id="" class="form-control"
+                                                        aria-describedby="helpId" required>
                                                     <label for="">Description</label>
-                                                    <input type="text" name="description" id="" class="form-control"
-                                                        aria-describedby="helpId">
+                                                    <textarea name="description" id="" class="form-control"
+                                                        aria-describedby="helpId" maxlength="500" rows="4" cols="50" required></textarea>
                                                     <label for="">Duration</label>
-                                                    <input type="text" name="duration" id="" class="form-control"
-                                                        aria-describedby="helpId">
-                                                    <label for="">Genre</label>
-                                                    <input type="text" name="genre" id="" class="form-control"
-                                                        aria-describedby="helpId">
+                                                    <input type="number" name="duration" min="0" max="300"
+                                                        class="form-control" aria-describedby="helpId" required>
+                                                    <label for="">Genre :</label><br>
+                                                    <input type="checkbox" id="genre" name="genre" value="Action"
+                                                        style="margin-left:20px">
+                                                    <label for="genre">Action</label><br>
+                                                    <input type="checkbox" id="genre" name="genre" value="Drama"
+                                                        style="margin-left:20px">
+                                                    <label for="genre">Drama</label><br>
+                                                    <input type="checkbox" id="genre" name="genre" value="Comedy"
+                                                        style="margin-left:20px">
+                                                    <label for="genre">Comedy</label><br>
+                                                    <input type="checkbox" id="genre" name="genre" value="Animation"
+                                                        style="margin-left:20px">
+                                                    <label for="genre">Animation</label><br>
                                                     <label for="">Director</label>
                                                     <input type="text" name="director" id="" class="form-control"
                                                         aria-describedby="helpId">
@@ -54,11 +65,16 @@
                                                         aria-describedby="helpId" required>
                                                     <label for="">Language</label>
                                                     <input type="text" name="language" id="" class="form-control"
-                                                        aria-describedby="helpId">
+                                                        aria-describedby="helpId" required>
+                                                    <br>
+                                                    <label for="">Link Youtube Video</label>
+                                                    <input type="text" name="video" id="" class="form-control"
+                                                        aria-describedby="helpId" required>
                                                     <br>
                                                     <label for="">Upload Image</label>
                                                     <input type="file" name="file" id="" accept="image/*" class=""
-                                                        onchange="previewFile(this);" aria-describedby="helpId" required>
+                                                        onchange="previewFile(this);" aria-describedby="helpId"
+                                                        required>
                                                     </p>
                                                     <img id="previewImg" src="" style="width: 200px; height: auto;">
                                                     <p>

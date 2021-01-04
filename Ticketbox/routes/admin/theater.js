@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const theaterModel = require('../../models/theater');
-const {authAdmin} = require('../../middlewares/auth');
+const { authAdmin } = require('../../middlewares/auth');
 
-router.get('/', async function (req, res) {
+router.get('/', authAdmin, async function (req, res) {
   const list = await theaterModel.all();
   console.log(list);
   res.render('admin/theater/index', {
@@ -43,7 +43,7 @@ router.post('/edit', async function (req, res, next) {
 
 
 router.get('/add', async function (req, res) {
-  res.render('admin/theater/add', {theaters : theaterModel.all()});
+  res.render('admin/theater/add', { theaters: theaterModel.all() });
 })
 
 router.post('/add', async function (req, res) {

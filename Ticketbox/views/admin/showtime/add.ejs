@@ -29,7 +29,7 @@
 
                                     <div class="card-body">
                                         <div class="container">
-                                            <form action="/admin/showtime/add" method="post">
+                                            <form action="/admin/showtime/add" method="post" onsubmit="return submitFormAddShowtime()">
                                                 <div class="form-group">
                                                     <label for="theater">Theater</label>
                                                     <select name="idtheater" id="theater">
@@ -54,10 +54,10 @@
 
                                                     <label for="birthday">The Beginning Day:</label>
                                                     <input type="date" id="beginningday" name="beginningday"
-                                                        style="margin-right:70px ;">
+                                                        style="margin-right:70px;" required>
 
                                                     <label for="">The End Day</label>
-                                                    <input type="date" id="endday" name="endday">
+                                                    <input type="date" id="endday" name="endday" required>
                                                     <br>
                                                     <input type="checkbox" id="ignore" name="ignore" value="1">
                                                     <label for="ignore">Ignore showtime(s) that there is a existing showtime at starttime in the theater you chose

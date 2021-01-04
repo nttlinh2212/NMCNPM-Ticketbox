@@ -3,8 +3,10 @@ var router = express.Router();
 const showtimeModel = require('../../models/showtime');
 const filmModel = require('../../models/film');
 const theaterModel = require('../../models/theater');
+const {authAdmin} = require('../../middlewares/auth');
 
-router.get('/', async function (req, res) {
+
+router.get('/', authAdmin, async function (req, res) {
   const list = await showtimeModel.all();
   console.log(list);
   res.render('admin/showtime/index', {
@@ -67,7 +69,7 @@ router.post('/add', async function (req, res) {
   beginningday = beginningday[2] + "/" + beginningday[1] + "/" + beginningday[0];
   endday = endday[2] + "/" + endday[1] + "/" + endday[0];
   var ignore = true;
-  if(req.body.ignore == undefined){
+  if (req.body.ignore == undefined) {
     ignore = false;
     console.log("FALSE");
     console.log("FALSE");
