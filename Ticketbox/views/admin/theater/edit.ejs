@@ -31,15 +31,14 @@
                     <div class="container">
                       <form action="/admin/theater/edit" method="post" >
                         <div class="form-group">
-                          <label for="">ID</label>
-                          <input type="text" name="id" id="" class="form-control" value="<%= theaters.id %>" readonly
+                          <input type="hidden" name="id" id="" class="form-control" value="<%= theaters.id %>" readonly
                             aria-describedby="helpId">
                           <label for="">Name</label>
                           <input type="text" name="name" id="" class="form-control" value="<%= theaters.name %>"
-                            aria-describedby="helpId">
+                            aria-describedby="helpId" required minlength="5" maxlength="50">
                           <label for="">Address</label>
                           <input type="text" name="address" id="" class="form-control" value="<%= theaters.address %>"
-                            aria-describedby="helpId">
+                            aria-describedby="helpId" required minlength="5" maxlength="50">
                         </div>
                         <button type="submit" class="btn btn-primary" style="width: 100%;">Save changes</button>
                       </form>

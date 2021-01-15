@@ -31,24 +31,23 @@
                     <div class="container">
                       <form action="/admin/account/edit" method="post">
                         <div class="form-group">
-                          <label for="">Id</label>
-                          <input type="text" name="id" id="" class="form-control" value="<%= users.id %>"
+                          <input type="hidden" name="id" id="" class="form-control" value="<%= users.id %>"
                             aria-describedby="helpId" readonly>
                           <label for="">Name</label>
                           <input type="text" name="fullname" id="" class="form-control" value="<%= users.fullname %>"
-                            aria-describedby="helpId">
+                            aria-describedby="helpId" required minlength="5" maxlength="50">
                           <label for="">Dob</label>
-                          <input type="text" name="dob" id="" class="form-control" value="<%= users.dob %>"
-                            aria-describedby="helpId">
+                          <input type="date" name="dob" id="" class="form-control" value="<%= users.dob %>"
+                            aria-describedby="helpId" required>
                           <label for="">Username</label>
                           <input type="text" name="username" id="" class="form-control" value="<%= users.username %>"
-                            aria-describedby="helpId">
+                            aria-describedby="helpId" readonly>
                           <label for="">Phone</label>
                           <input type="text" name="phone" id="" class="form-control" value="<%= users.phone %>"
                             aria-describedby="helpId">
                           <label for="">Point</label>
-                          <input type="text" name="point" id="" class="form-control" value="<%= users.point %>"
-                            aria-describedby="helpId">
+                          <input type="number" name="point" id="" class="form-control" value="<%= users.point %>"
+                            aria-describedby="helpId" required min="0" max="100000" step="1">
                           <label for="">Favourite genre</label>
                           <input type="text" name="favouriteGenre" id="" class="form-control"
                             value="<%= users.favouriteGenre %>" aria-describedby="helpId">
