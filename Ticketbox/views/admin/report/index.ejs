@@ -1,152 +1,146 @@
 <% include ../head %>
 
-  <body id="page-top">
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+    <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
 
-      <!-- Sidebar -->
-      <% include ../navbar %>
-        <!-- End of Sidebar -->
+            <!-- Sidebar -->
+            <% include ../navbar %>
+                <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Content Wrapper -->
+                <div id="content-wrapper" class="d-flex flex-column">
 
-          <!-- Main Content -->
-          <div id="content">
+                    <!-- Main Content -->
+                    <div id="content">
 
-            <!-- Header -->
-            <% include ../header %>
-              <!-- End of Header -->
+                        <!-- Header -->
+                        <% include ../header %>
+                            <!-- End of Header -->
 
-              <!-- Begin Page Content -->
-              <div class="container-fluid">
+                            <!-- Begin Page Content -->
+                            <div class="container-fluid">
 
-                <!-- Page Heading -->
+                                <!-- Page Heading -->
 
-                <!-- Show Data -->
-                <div class="card shadow mb-4">
-                  <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary text-center">Select Options To View & Edit Showtimes
-                    </h6>
-                  </div>
+                                <!-- Show Data -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h4 class="m-0 font-weight-bold text-primary text-center">Report
+                                        </h4>
+                                    </div>
 
-                  <div class="card-body">
-                    <div class="card-body">
-                      <div class="container">
-                        <form>
-                          <div class="form-group">
-                            <label for="theater">Theater</label>
-                            <select name="idtheater" id="idtheater">
-                              <option value="null">All</option>
-                              <% theaters.forEach(function(itemTheater){ %>
-                                <option value="<%= itemTheater.id %>">
-                                  <%= itemTheater.name %>
-                                </option>
-                                <% }); %>
-                            </select>
-                            <br>
-                            <br>
-                            <label for="film">Film</label>
-                            <select name="idfilm" id="idfilm">
-                              <option value="null">All</option>
-                              <% films.forEach(function(itemFilm){ %>
-                                <option value="<%= itemFilm.id %>">
-                                  <%= itemFilm.title %>
-                                </option>
-                                <% }); %>
-                            </select>
-                            <br><br>
-                            <label for="birthday">The Beginning Day:</label>
-                            <input type="date" id="beginningday" name="beginningday" style="margin-right:70px ;"
-                              required>
+                                    <div class="card-body">
+                                        <div class="card-body">
+                                            <div class="container">
+                                                <form>
 
-                            <label for="">The End Day</label>
-                            <input type="date" id="endday" name="endday" required>
-                            <br>
-                            <br>
-                            <label for="starttime">Start Time</label>
-                            <select id="starttime" name="starttime">
-                              <option value="null">All</option>
-                              <option value="08:00:00">08:00:00</option>
-                              <option value="10:00:00">10:00:00</option>
-                              <option value="12:00:00">12:00:00</option>
-                              <option value="14:00:00">14:00:00</option>
-                              <option value="16:00:00">16:00:00</option>
-                              <option value="18:00:00">18:00:00</option>
-                              <option value="20:00:00">20:00:00</option>
-                              <option value="22:00:00">22:00:00</option>
-                            </select>
-                            <br>
-                          </div>
-                          <p id="soleSeat" style="font-weight:bold; color:black; "></p>
-                          <p id="revenue" style="font-weight:bold; color:black; "></p>
-                      </div>
-                      <button type="button" class="btn btn-primary" style="width: 100%;" id="viewRevenue">View
-                        Revenue</button>
-                      </form>
+                                                    <div class="form-group">
+                                                        <h6 class="m-0 font-weight-bold">Period
+                                                        </h6>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-md-1"><label for="birthday">From: </label></div>
+                                                            <div class="col-md-4"><input type="date" id="beginningday" name="beginningday" required></div>
+                                                            <div class="col-md-1"><label for="">To: </label></div>
+                                                            <div class="col-md-4"><input type="date" id="endday" name="endday" required></div>
+                                                        </div>
+                                                        <br>
+                                                        <br>
+                                                        <h6 class="m-0 font-weight-bold">Revenue Of:
+                                                        </h6>
+                                                        <br>
+
+                                                        <div class="row">
+                                                            <div class="col-md-1">
+                                                                <label for="theater">Theater</label>
+                                                            </div>
+                                                            <div class="col-md-7">
+                                                                <select name="idtheater" id="idtheater">
+                                                            <option value="null">All</option>
+                                                            <% theaters.forEach(function(itemTheater){ %>
+                                                              <option value="<%= itemTheater.id %>">
+                                                                <%= itemTheater.name %>
+                                                              </option>
+                                                              <% }); %>
+                                                          </select>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <button type="button" class="btn btn-primary" id="viewRevenueTheater">View
+                                                            Revenue</button>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <br>
+                                                        <div class="row">
+                                                            <div class="col-sm-1"><label for="film">Film</label></div>
+                                                            <div class="col-sm-7">
+                                                                <select name="idfilm" id="idfilm">
+                                                              <option value="null">All</option>
+                                                              <% films.forEach(function(itemFilm){ %>
+                                                                <option value="<%= itemFilm.id %>">
+                                                                  <%= itemFilm.title %>
+                                                                </option>
+                                                                <% }); %>
+                                                            </select>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <button type="button" class="btn btn-primary" id="viewRevenueFilm">View
+                                                              Revenue</button>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <br>
+                                                    </div>
+                                            </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card shadow mb-4" id="#table-revenue">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary" id="#header">Revenue</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                    <tr id="films">
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody id="dates">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                     </div>
+                    <!-- End of Main Content -->
 
-                  </div>
+                    <!-- Footer -->
+                    <% include ../footer%>
+                        <!-- End of Footer -->
                 </div>
-              </div>
-          </div>
-          <!-- End of Main Content -->
-
-          <!-- Footer -->
-          <% include ../footer%>
-            <!-- End of Footer -->
+                <!-- End of Content Wrapper -->
         </div>
-        <!-- End of Content Wrapper -->
-    </div>
-    <!-- End of Page Wrapper -->
+        <!-- End of Page Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-    </a>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 
-    <!-- Logout Modal-->
-    <% include ../logout %>
+        <!-- Logout Modal-->
+        <% include ../logout %>
 
-      <!-- Add Javascript-->
-      <% include ../javascripts-addon %>
+            <!-- Add Javascript-->
+            <% include ../javascripts-addon %>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+                <script src="/javascripts/js/report.js"></script>
+    </body>
 
-        <script>
-          $('#viewRevenue').click(function (e) {
-            const beginningday = $('#beginningday').val();
-            const endday = $('#endday').val();
-            if (beginningday === "") {
-              alert(`Please enter "The Beginning Day" field`);
-            }
-            if (endday === "") {
-              alert(`Please enter "The End Day" field`);
-            }
-            if ((beginningday != "") && (endday != "")) {
-              var beginningdayCompare = new Date(beginningday);
-              var enddayCompare = new Date(endday);
-
-              if (enddayCompare >= beginningdayCompare) {
-                const idfilm = $('#idfilm').val();
-                const idtheater = $('#idtheater').val();
-                const starttime = $('#starttime').val();
-
-                send = { idfilm, idtheater, beginningday, endday, starttime };
-
-                $.getJSON(`/admin/report/get-revenue`, send, function (data) {
-                  console.log(data);
-                  if (data) {
-                    document.getElementById("soleSeat").innerHTML = `<p>SoleSeat / TotalSeat : ${data.sold_seat} / ${data.total_seat}<p/>`;
-                    document.getElementById("revenue").innerHTML = `<p>Revenue : ${data.revenue} VNĐ<p/>`;
-                  }
-                })
-              }
-              else{
-                alert(`"The End Day" is required after "The Beginning Day"`);
-              }
-            }
-          });
-
-        </script>
-  </body>
-
-  </html>
+    </html>

@@ -3,32 +3,31 @@ var router = express.Router();
 const showtimeModel = require('../../models/showtime');
 const filmModel = require('../../models/film');
 const theaterModel = require('../../models/theater');
-const {authAdmin} = require('../../middlewares/auth');
+const { authAdmin } = require('../../middlewares/auth');
 
-router.get('/get-revenue-by-film', async function (req, res) {//o day ngay phai co dang d/m/y xem sua datetimepicker thanh dang 
-  console.log(req.query);
-  const result = await showtimeModel.getRevenue(null,10001,null,'1/1/2021','5/1/2021');
-  //const result = await showtimeModel.getRevenue(req.query.idfilm,req.query.idtheater,req.query.starttime,req.query.begindate,req.query.enddate);
-  console.log(result);
-  res.json(result);
-  
+router.get('/get-revenue-by-film', async function(req, res) { //o day ngay phai co dang d/m/y xem sua datetimepicker thanh dang 
+        console.log(req.query);
+        // const result = await showtimeModel.getRevenue(null, 10001, null, '1/1/2021', '5/1/2021');
+        const result = await showtimeModel.getRevenue(req.query.idfilm, req.query.idtheater, req.query.starttime, req.query.begindate, req.query.enddate);
+        console.log(result);
+        res.json(result);
+    })
+    // $.getJSON('get-revenue?idfilm=null&idtheater=null&starttime=12:00:00&begindate=1/1/2021&enddate=2/1/2021'
+
+router.get('/get-revenue-by-theater', async function(req, res) { //o day ngay phai co dang d/m/y xem sua datetimepicker thanh dang 
+    console.log(req.query);
+    // const result = await showtimeModel.getRevenuebytheater(10000, null, null, '1/1/2021', '5/1/2021');
+    const result = await showtimeModel.getRevenuebytheater(req.query.idfilm, req.query.idtheater, req.query.starttime, req.query.begindate, req.query.enddate);
+    console.log(result);
+    res.json(result);
+
 })
-// $.getJSON('get-revenue?idfilm=null&idtheater=null&starttime=12:00:00&begindate=1/1/2021&enddate=2/1/2021'
 
-router.get('/get-revenue-by-theater', async function (req, res) {//o day ngay phai co dang d/m/y xem sua datetimepicker thanh dang 
-  console.log(req.query);
-  const result = await showtimeModel.getRevenuebytheater(10000,null,null,'1/1/2021','5/1/2021');
-  //const result = await showtimeModel.getRevenuebytheater(req.query.idfilm,req.query.idtheater,req.query.starttime,req.query.begindate,req.query.enddate);
-  console.log(result);
-  res.json(result);
- 
-})
+router.get('/', async function(req, res) {
 
-router.get('/', async function (req, res) {
-  
-  const films = await filmModel.all();
-  const theaters = await theaterModel.all();
-  res.render('admin/report/index',{title:'Report',films,theaters});
+    const films = await filmModel.all();
+    const theaters = await theaterModel.all();
+    res.render('admin/report/index', { title: 'Report', films, theaters });
 })
 
 
