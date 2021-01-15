@@ -6,17 +6,25 @@ const theaterModel = require('../../models/theater');
 const { authAdmin } = require('../../middlewares/auth');
 
 
+
+
 router.get('/', authAdmin, async function (req, res) {
   var dateToday = new Date();
-  dateToday = dateToday.toISOString().split("T");
-  dateToday = dateToday[0];
+  var dd = dateToday.getDate();
 
-  // console.log(dateToday);
+  var mm = dateToday.getMonth() + 1;
+  var yyyy = dateToday.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd;
+  }
+
+  if (mm < 10) {
+    mm = '0' + mm;
+  }
+  dateToday = yyyy + '-' + mm + '-' + dd;
+  console.log(dateToday);
 
   theaters = await theaterModel.all();
-
-  // console.log(theaters);
-  // console.log(theaters[0].id);
 
   var defaultTheaterShowtime = await showtimeModel.allT(theaters[0].id, dateToday);
 
@@ -25,7 +33,7 @@ router.get('/', authAdmin, async function (req, res) {
     defaultTheaterShowtime,
     dateToday,
     theaters,
-    adminName : req.session.authUser.fullname
+    adminName: req.session.authUser.fullname
   });
 })
 
@@ -74,7 +82,7 @@ router.get('/edit/:id', async function (req, res) {
     showtimes,
     films,
     theaters,
-    adminName : req.session.authUser.fullname
+    adminName: req.session.authUser.fullname
   });
 })
 
@@ -128,7 +136,7 @@ router.post('/add', async function (req, res) {
   console.log(result);
   res.render('admin/showtime/addResult', {
     result,
-    adminName : req.session.authUser.fullname
+    adminName: req.session.authUser.fullname
   });
 })
 
@@ -137,16 +145,27 @@ router.post('/add', async function (req, res) {
 router.get('/add', async function (req, res) {
   const theaters = await theaterModel.all();
   const films = await filmModel.all();
-
   var dateToday = new Date();
-  dateToday = dateToday.toISOString().split("T");
-  dateToday = dateToday[0];
+  var dd = dateToday.getDate();
+
+  var mm = dateToday.getMonth() + 1;
+  var yyyy = dateToday.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd;
+  }
+
+  if (mm < 10) {
+    mm = '0' + mm;
+  }
+  dateToday = yyyy + '-' + mm + '-' + dd;
+  console.log(dateToday);
+
 
   res.render('admin/showtime/add', {
     films,
     theaters,
     dateToday,
-    adminName : req.session.authUser.fullname
+    adminName: req.session.authUser.fullname
   });
 })
 

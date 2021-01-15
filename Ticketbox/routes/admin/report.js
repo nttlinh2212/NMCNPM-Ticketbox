@@ -25,8 +25,19 @@ router.get('/get-revenue-by-theater', async function(req, res) { //o day ngay ph
 
 router.get('/', async function(req, res) {
     var dateToday = new Date();
-    dateToday = dateToday.toISOString().split("T");
-    dateToday = dateToday[0];
+    var dd = dateToday.getDate();
+  
+    var mm = dateToday.getMonth() + 1;
+    var yyyy = dateToday.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+  
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+    dateToday = yyyy + '-' + mm + '-' + dd;
+    console.log(dateToday);
 
     const films = await filmModel.all();
     const theaters = await theaterModel.all();
