@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>TICKETBOX</title>
 
     <!-- Custom fonts for this template -->
     <link href="/stylesheets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -81,6 +81,62 @@
             else {
                 alert(`"The End Day" is required after "The Beginning Day"`);
                 return false;
+            }
+        }
+
+
+        function renderTableShowtime() {
+            $("#admin_showtime_table_tbody").empty();
+            var theaterID = $("#theater").val();
+            var date = $("#date").val();
+            // alert(theaterID);
+            // alert(date);
+
+            var send = {
+                id: theaterID,
+                date: date,
+            }
+
+            $.getJSON(`/admin/showtime/getShowtimesByTheaterAndDate`, send, function (data) {
+                if (data) {
+                    // console.log(data);
+                    var strData = "";
+                    data.forEach(function (item) {
+                        strData = strData + `<tr>
+                                    <td>
+                                      ${item.title}
+                                    </td>
+                                    <td>
+                                      ${item.starttime}
+                                    </td>
+                                    <td>
+                                      <button class = "btn btn-danger" onclick = "deleteShowtime(${item.idshowtime})">Delete</button>
+                                    </td>
+                                  </tr>`;
+                    })
+                    var tbody = document.getElementById(`admin_showtime_table_tbody`);
+                    tbody.insertAdjacentHTML("beforeend", strData);
+                }
+            })
+        }
+
+
+        function deleteShowtime(idShowtime) {
+            // alert(idShowtime);
+            var check = confirm("Are you sure you want to delete?");
+            if (check) {
+                var send = { idShowtime };
+                $.getJSON(`/admin/showtime/deleteShowtime`, send, function (data) {
+                    if (data.result) {
+                        alert("Delete successfully");
+                        renderTableShowtime();
+                    } else {
+                        alert("Delete failed");
+                    }
+                })
+            }
+            else {
+                return;
             }
         }
     </script>
