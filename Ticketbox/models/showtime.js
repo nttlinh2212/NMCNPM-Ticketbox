@@ -9,6 +9,15 @@ module.exports = {
     const [rows, fields] = await db.load(sql);
     return rows;
   },
+  async allT(idtheater,date) {
+    var mysqlDate = moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD');
+    const sql = `select f.id as idfilm, f.title, t.id as idtheater, t.name , s.id as idshowtime, s.starttime 
+    from showtime s inner join film f on s.idfilm = f.id inner join theater t 
+       on s.idtheater = t.id   
+      where idtheater=${idtheater} and date = '${date}'`;
+    const [rows, fields] = await db.load(sql);
+    return rows;
+  },
   async allShowtimesByTheaterGroupByFilm(idtheater) {
     const sql = 'select date from showtime group by date ';
     const [rows, fields] = await db.load(sql);
@@ -296,6 +305,6 @@ module.exports = {
     } 
     
     return ret;
-  }
-
+  },
+  
 };

@@ -56,5 +56,5 @@ module.exports = {
     const [result, fields] = await db.update(user, condition, 'user');
     return result;
   },
-
+  
 };
