@@ -44,10 +44,17 @@ $('#frmCheckout').on('submit', function(e) {
     const idcus = $('#idcus').val();
     $.getJSON(`/Customer/Cart/checkout?idcus=${idcus}`, function(data) {
         if (data[0] == true) {
-            // $('#successModal').modal();
-            if (!alert('Book Ticket Successfully!')) { window.location.reload(); }
+            $('#modal .modal-title').text('Success');
+            $('#modal .modal-message').text('Your ticket is booked successfully!');
+            $('#modal').appendTo('body').modal('show');
         } else {
-            if (!alert('Sorry the tickets you booked is no longer available. Please choose the others!')) { window.location.reload(); }
+            $('#modal .modal-title').text('Failed');
+            $('#modal .modal-message').text('Sorry the tickets you booked is no longer available. Please choose the others!');
+            $('#modal').appendTo('body').modal('show');
         }
     })
+})
+
+$(document).on('hide.bs.modal', '#modal', function() {
+    window.location.reload();
 })
