@@ -7,6 +7,12 @@ module.exports = {
     //console.log(rows,typeof(rows));
     return rows;
   },
+  async all1() {
+    const sql = 'select name, 0 as revenue from theater';
+    const [rows, fields] = await db.load(sql);
+    //console.log(rows,typeof(rows));
+    return rows;
+  },
   //fuction search key parameter can be integer(id) or string(name)
   async searchBy(key) {
     if(!isNaN(key)){

@@ -1,6 +1,7 @@
 const db = require('../utils/db');
 const moment = require('moment');
 const {generateDate} = require('../utils/format');
+const { all1 } = require('./theater');
 
 module.exports = {
   async all() {
@@ -196,46 +197,105 @@ module.exports = {
     return result;
   },
   async getRevenue(idfilm,idtheater,starttime,begindate,enddate ) {
-    res = {sold_seat:0,total_seat:0,revenue:0};
+    //res = {sold_seat:0,total_seat:0,revenue:0};
     parameters = [];//count(*), sum(ticketprice)// count(idshowtime)*5*8 as total,
-    let sql = 'select  count(*) as number, sum(ticketprice) as revenue from seatsofshowtime se join showtime s on se.idshowtime = s.id  where se.status is not null ';
-    let sql1 = 'select count(*)*5*8 as total  from showtime where 1=1 ';
+    //let sql = 'select sum(ticketprice) as revenue from seatsofshowtime se join showtime s on se.idshowtime = s.id  where se.status is not null ';//select  count(*) as number, 
+    let sql = `select f.title,sum(ticketprice) as revenue 
+    from seatsofshowtime se inner join showtime s on se.idshowtime = s.id inner join film f on f.id=s.idfilm
+    where se.status is not null `;//select  count(*) as number, 
+    //let sql1 = 'select count(*)*5*8 as total  from showtime where 1=1 ';
     if (idfilm&&idfilm !== 'null'){
       sql+='and idfilm = ? ';
-      sql1+='and idfilm = ? ';
+      //sql1+='and idfilm = ? ';
       parameters.push(idfilm);
     }  
     if (idtheater&&idtheater !== 'null'){
       sql+='and idtheater = ? ';
-      sql1+='and idtheater = ? ';
+      //sql1+='and idtheater = ? ';
       parameters.push(idtheater);
     }
     if (starttime&&starttime !== 'null'){
       sql+='and starttime = ? ';
-      sql1+='and starttime = ? ';
+      //sql1+='and starttime = ? ';
       parameters.push(starttime);
     }
       
     dates = generateDate(begindate,enddate);//se.status is not null and//
     sql+='and date = ? ';
-    sql1+='and date = ? ';
+    //sql1+='and date = ? ';
     
-      
+    let ret=[]; 
     for (const date of dates) {
       console.log(date);
       parameters.push(date);
       const [rows, fields] = await db.load1(sql,parameters);
-      const [rows1, fields1] = await db.load1(sql1,parameters);
-      if (rows1[0].total!==0){
-        res.total_seat+=rows1[0].total;
-      }
-      if (rows[0].number!==0){
-        res.sold_seat+=rows[0].number;
-        res.revenue+=(+rows[0].revenue);
-      }
-      console.log(JSON.stringify(rows),JSON.stringify(rows1));
+      //const [rows1, fields1] = await db.load1(sql1,parameters);
+      // if (rows1[0].total!==0){
+      //   res.total_seat+=rows1[0].total;
+      // }
+      let aday = {date,total: +rows[0].revenue};
+      let sql2 = 'select b.title, IFNULL(a.revenue,0) as revenue from ('+sql+ ` group by f.id ) a right join
+      (select title
+  from film) b on a.title=b.title`
+      console.log(sql2,'sql2');
+      const [rows2, fields2] = await db.load1(sql2,parameters);
+      
+      aday.films = rows2;
+      
+      ret.push(aday);
       parameters.pop();
+    } 
+    //console.log(JSON.stringify(ret,'here ret'));
+    return ret;
+  },
+  async getRevenuebytheater(idfilm,idtheater,starttime,begindate,enddate ) {
+  
+    parameters = [];//count(*), sum(ticketprice)// count(idshowtime)*5*8 as total,
+    //let sql = 'select sum(ticketprice) as revenue from seatsofshowtime se join showtime s on se.idshowtime = s.id  where se.status is not null ';//select  count(*) as number, 
+    let sql = `select t.name,sum(ticketprice) as revenue 
+    from seatsofshowtime se inner join showtime s on se.idshowtime = s.id inner join theater t on t.id=s.idtheater
+    where se.status is not null `;//select  count(*) as number, 
+    //let sql1 = 'select count(*)*5*8 as total  from showtime where 1=1 ';
+    if (idfilm&&idfilm !== 'null'){
+      sql+='and idfilm = ? ';
+      //sql1+='and idfilm = ? ';
+      parameters.push(idfilm);
     }  
-    return res;
+    if (idtheater&&idtheater !== 'null'){
+      sql+='and idtheater = ? ';
+      //sql1+='and idtheater = ? ';
+      parameters.push(idtheater);
+    }
+    if (starttime&&starttime !== 'null'){
+      sql+='and starttime = ? ';
+      //sql1+='and starttime = ? ';
+      parameters.push(starttime);
+    }
+      
+    dates = generateDate(begindate,enddate);
+    sql+='and date = ? ';
+    
+    
+    let ret=[]; 
+    for (const date of dates) {
+      console.log(date);
+      parameters.push(date);
+      const [rows, fields] = await db.load1(sql,parameters);
+    
+      let aday = {date,total: +rows[0].revenue};
+      let sql2 = 'select b.name, IFNULL(a.revenue,0) as revenue from ('+sql+ ` group by t.id ) a right join
+      (select name
+  from theater) b on a.name=b.name`
+      console.log(sql2,'sql2');
+      const [rows2, fields2] = await db.load1(sql2,parameters);
+      
+      aday.films = rows2;
+     
+      ret.push(aday);
+      parameters.pop();
+    } 
+    
+    return ret;
   }
+
 };
