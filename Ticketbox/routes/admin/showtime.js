@@ -25,6 +25,7 @@ router.get('/', authAdmin, async function (req, res) {
     defaultTheaterShowtime,
     dateToday,
     theaters,
+    adminName : req.session.authUser.fullname
   });
 })
 
@@ -72,7 +73,8 @@ router.get('/edit/:id', async function (req, res) {
   res.render('admin/showtime/edit', {
     showtimes,
     films,
-    theaters
+    theaters,
+    adminName : req.session.authUser.fullname
   });
 })
 
@@ -125,7 +127,8 @@ router.post('/add', async function (req, res) {
   //return so luong showtimes da add
   console.log(result);
   res.render('admin/showtime/addResult', {
-    result
+    result,
+    adminName : req.session.authUser.fullname
   });
 })
 
@@ -142,7 +145,8 @@ router.get('/add', async function (req, res) {
   res.render('admin/showtime/add', {
     films,
     theaters,
-    dateToday
+    dateToday,
+    adminName : req.session.authUser.fullname
   });
 })
 

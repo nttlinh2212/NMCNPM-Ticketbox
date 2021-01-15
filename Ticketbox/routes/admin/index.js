@@ -6,11 +6,11 @@ const theaterModel = require('../../models/theater');
 const { authAdmin } = require('../../middlewares/auth');
 
 router.get('/', authAdmin, function (req, res) {
-  res.render('admin/dashboard/index');
+  res.render('admin/dashboard/index', {adminName : req.session.authUser.fullname});
 })
 
 router.get('/dashboard', function (req, res) {
-  res.render('admin/dashboard/index');
+  res.render('admin/dashboard/index', {adminName : req.session.authUser.fullname});
 })
 
 module.exports = router;

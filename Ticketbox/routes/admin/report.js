@@ -24,10 +24,13 @@ router.get('/get-revenue-by-theater', async function(req, res) { //o day ngay ph
 })
 
 router.get('/', async function(req, res) {
+    var dateToday = new Date();
+    dateToday = dateToday.toISOString().split("T");
+    dateToday = dateToday[0];
 
     const films = await filmModel.all();
     const theaters = await theaterModel.all();
-    res.render('admin/report/index', { title: 'Report', films, theaters });
+    res.render('admin/report/index', { title: 'Report', films, theaters, dateToday, adminName : req.session.authUser.fullname });
 })
 
 

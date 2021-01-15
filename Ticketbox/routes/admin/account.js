@@ -8,7 +8,8 @@ router.get('/',authAdmin, async function (req, res) {
   const list = await userModel.allCustomer();
   res.render('admin/account/index', {
     users: list,
-    empty: list.length === 0
+    empty: list.length === 0,
+    adminName : req.session.authUser.fullname
   });
 })
 
@@ -22,7 +23,8 @@ router.get('/edit/:id',authAdmin, async function (req, res) {
   }
 
   res.render('admin/account/edit', {
-    users
+    users,
+    adminName : req.session.authUser.fullname
   });
 
 })
@@ -47,7 +49,7 @@ router.post('/edit',authAdmin, async function (req, res, next) {
 
 
 router.get('/add',authAdmin, function (req, res) {
-  res.render('admin/account/add');
+  res.render('admin/account/add',{adminName : req.session.authUser.fullname});
 })
 
 router.post('/add',authAdmin, async function (req, res) {
