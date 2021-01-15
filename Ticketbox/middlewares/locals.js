@@ -6,7 +6,7 @@ module.exports = function (app) {
     if (typeof (req.session.auth) === 'undefined') {
       req.session.auth = false;
     }
-
+    console.log('herrrrrrrr',req.session.authUser);
     if (req.session.auth === false) {
       req.session.cart = [];
     }

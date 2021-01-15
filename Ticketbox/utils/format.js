@@ -8,6 +8,7 @@ module.exports = {
             dateArray.push( moment(currentDate).format('YYYY-MM-DD') )
             currentDate = moment(currentDate).add(1, 'days');
         }
+        console.log(dateArray+'dayarray');
         return dateArray;
     }
 }   

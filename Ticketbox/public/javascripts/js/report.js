@@ -21,13 +21,13 @@ $('#viewRevenueTheater').click(function(e) {
         if (enddayCompare >= beginningdayCompare) {
             const idfilm = 'null';
             const starttime = 'null';
-            beginningday = moment(beginningday, "YYYY-MM-DD").format("D/M/YYYY");
-            endday = moment(endday, "YYYY-MM-DD").format("D/M/YYYY");
+            beginningday = moment(beginningday, "YYYY-MM-DD").format("DD/MM/YYYY");
+            endday = moment(endday, "YYYY-MM-DD").format("DD/MM/YYYY");
             send = {
                 idfilm,
                 idtheater,
-                beginningday,
-                endday,
+                begindate: beginningday,
+                enddate:endday,
                 starttime
             };
             $.getJSON(`/admin/report/get-revenue-by-film`, send, function(data) {
@@ -88,8 +88,8 @@ $('#viewRevenueFilm').click(function(e) {
             send = {
                 idfilm,
                 idtheater,
-                beginningday,
-                endday,
+                begindate: beginningday,
+                enddate:endday,
                 starttime
             };
             $.getJSON(`/admin/report/get-revenue-by-theater`, send, function(data) {
