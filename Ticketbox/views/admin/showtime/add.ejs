@@ -54,10 +54,10 @@
 
                                                     <label for="birthday">The Beginning Day:</label>
                                                     <input type="date" id="beginningday" name="beginningday"
-                                                        style="margin-right:70px;" required>
+                                                        style="margin-right:70px;" value = "<%= dateToday %>" required>
 
                                                     <label for="">The End Day</label>
-                                                    <input type="date" id="endday" name="endday" required>
+                                                    <input type="date" id="endday" name="endday" value = "<%= dateToday %>" required>
                                                     <br>
                                                     <input type="checkbox" id="ignore" name="ignore" value="1">
                                                     <label for="ignore">Ignore showtime(s) that there is a existing showtime at starttime in the theater you chose
