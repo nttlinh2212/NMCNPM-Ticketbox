@@ -134,9 +134,15 @@ router.post('/add', async function (req, res) {
 router.get('/add', async function (req, res) {
   const theaters = await theaterModel.all();
   const films = await filmModel.all();
+
+  var dateToday = new Date();
+  dateToday = dateToday.toISOString().split("T");
+  dateToday = dateToday[0];
+
   res.render('admin/showtime/add', {
     films,
-    theaters
+    theaters,
+    dateToday
   });
 })
 
