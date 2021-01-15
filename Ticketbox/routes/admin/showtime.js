@@ -3,19 +3,59 @@ var router = express.Router();
 const showtimeModel = require('../../models/showtime');
 const filmModel = require('../../models/film');
 const theaterModel = require('../../models/theater');
-const {authAdmin} = require('../../middlewares/auth');
+const { authAdmin } = require('../../middlewares/auth');
 
 
 router.get('/', authAdmin, async function (req, res) {
-  const list = await showtimeModel.all();
-  console.log(list);
+  var dateToday = new Date();
+  dateToday = dateToday.toISOString().split("T");
+  dateToday = dateToday[0];
+
+  // console.log(dateToday);
+
+  theaters = await theaterModel.all();
+
+  // console.log(theaters);
+  // console.log(theaters[0].id);
+
+  var defaultTheaterShowtime = await showtimeModel.allT(theaters[0].id, dateToday);
+
+  // console.log(defaultTheaterShowtime);
   res.render('admin/showtime/index', {
-    showtimes: list,
-    films: await filmModel.all(),
-    theaters: await theaterModel.all(),
-    empty: list.length === 0
+    defaultTheaterShowtime,
+    dateToday,
+    theaters,
   });
 })
+
+
+
+router.get('/getShowtimesByTheaterAndDate', authAdmin, async function (req, res) {
+
+  var listShowtimesByTheaterAndDate = await showtimeModel.allT(req.query.id, req.query.date);
+  console.log(listShowtimesByTheaterAndDate);
+
+  res.json(listShowtimesByTheaterAndDate);
+})
+
+router.get('/deleteShowtime', async function (req, res) {
+  console.log("Delete");
+  var id = parseInt(req.query.idShowtime);
+  console.log(id);
+
+  const result = await showtimeModel.del(id);
+  if (result.length === 0) {
+    console.log("Delete", id, "fail");
+    res.json({ result: false });
+  }
+  else {
+    console.log("Delete", id, "sucessful");
+    res.json({ result: true });
+  }
+})
+
+
+
 
 router.get('/edit/:id', async function (req, res) {
   const id = req.params.id;
@@ -71,11 +111,6 @@ router.post('/add', async function (req, res) {
   var ignore = true;
   if (req.body.ignore == undefined) {
     ignore = false;
-    console.log("FALSE");
-    console.log("FALSE");
-    console.log("FALSE");
-    console.log("FALSE");
-    console.log("FALSE");
   }
   const showtime = {
     idtheater: parseInt(req.body.idtheater),
@@ -105,39 +140,8 @@ router.get('/add', async function (req, res) {
   });
 })
 
-// router.post('/add', async function (req, res) {
-//   const showtime = {
-//     // id: parseInt(req.body.id),
-//     idtheater: parseInt(req.body.idtheater),
-//     idfilm: parseInt(req.body.idfilm),
-//     starttime: req.body.starttime,
-//     numberofrows: parseInt(req.body.numberofrows),
-//     numberofcolumns: parseInt(req.body.numberofcolumns),
-//     date: req.body.date
-//   }
 
-//   console.log(showtime)
-//   const result = await showtimeModel.add(showtime);
-//   if (result.length === 0) { console.log("Add", showtime.idshowtime, "fail"); }
-//   console.log("Add", showtime.idshowtime, "sucessful");
 
-//   res.redirect('/admin/showtime');
-// })
-
-router.post('/delete', async function (req, res) {
-  console.log("Delete");
-  console.log(req.body.id_del);
-  console.log(typeof (req.body.id_del));
-  console.log(parseInt(req.body.id_del));
-
-  const id = req.body.id_del;
-  const result = await showtimeModel.del(req.body.id_del);
-  if (result.length === 0)
-    console.log("Delete", id, "fail");
-  console.log("Delete", id, "sucessful");
-
-  res.redirect('/admin/showtime');
-})
 
 
 module.exports = router;
