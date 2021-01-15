@@ -1,11 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> </title>
-</head>
-<body>
-    <%= JSON.stringify(user) %> 
-</body>
-</html>
+<%- include('../layouts/head') %>
+
+    <body>
+        <header>
+            <%- include('../layouts/navbar') %>
+        </header>
+
+        <main class="page-header header-filter" style="background-image: url('../assets/img/bg7.jpg'); background-size: cover; background-position: top center;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                        <div class="card card-nav-tabs" style="margin-top: 9rem">
+                            <div class="card-header card-header-danger text-center">
+                                <h4 class="card-title">Manage Your Account</h4>
+                                <div class="nav-tabs-navigation">
+                                    <div class="nav-tabs-wrapper">
+                                        <ul class="nav nav-tabs d-flex justify-content-around" data-tabs="tabs">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" href="#profile" data-toggle="tab">
+                                                    <i class="material-icons">face</i> Profile
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#settings" data-toggle="tab">
+                                                    <i class="material-icons">security</i> Change Password
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body ">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="profile">
+                                        <form action="" autocomplete="off">
+                                            <div class="form-group">
+                                                <label for="usernameInput" class="bmd-label-floating">Fullname</label>
+                                                <input type="text" class="form-control" id="usernameInput">
+                                                <span class="bmd-help">Your fullname mustn't contain numbers or special characters.</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="phoneInput" class="bmd-label-floating">Phone</label>
+                                                <input type="text" class="form-control" id="phoneInput">
+                                                <span class="bmd-help">Your phone must have exactly 10 numbers.</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="label-control">Date Of Birth</label>
+                                                <input type="text" class="form-control datetimepicker" id="dobInput" autocomplete="off">
+                                            </div>
+                                            <div class="footer text-center">
+                                                <a href="#pablo" class="btn btn-primary btn-link btn-wd btn-lg">Change</a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane" id="settings">
+                                        <div class="form-group">
+                                            <label for="oldPasswordInput" class="bmd-label-floating" autocomplete="off">Old Password</label>
+                                            <input type="password" class="form-control" id="oldPasswordInput">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="newPasswordInput" class="bmd-label-floating">New Password</label>
+                                            <input type="password" class="form-control" id="newPasswordInput">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="confirmPasswordInput" class="bmd-label-floating">Confirm Password</label>
+                                            <input type="password" class="form-control" id="confirmPasswordInput">
+                                        </div>
+                                        <div class="footer text-center">
+                                            <a href="#pablo" class="btn btn-primary btn-link btn-wd btn-lg">Change Password</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <footer>
+                    <%- include('../layouts/footer') %>
+                </footer>
+            </div>
+        </main>
+        <%- include('../layouts/scripts') %>
+    </body>
+
+    </html>
