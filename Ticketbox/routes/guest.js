@@ -47,10 +47,13 @@ router.post('/signin', async function(req, res) {
 
     req.session.auth = true;
     req.session.authUser = user;
-    var url = req.session.retUrl || '/';
-    console.log(url,'here url',req.session.authUser);
-    res.redirect(url);
-    res.end();
+    // if (req.session.authUser.isadmin === 1) {
+    //     console.log('login admin successfully');
+    //     res.redirect('/admin');
+    // } else {
+        const url = req.session.retUrl || '/';
+        res.redirect(url);
+    //}
 
 
 });

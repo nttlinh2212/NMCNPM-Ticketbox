@@ -32,6 +32,14 @@
               </div>
           </div>
       </div>
+      <script>
+        window.onload = function() {
+    if(!window.location.hash) {
+    window.location = window.location + '#loaded';
+    window.location.reload();
+    }
+    }
+    </script>
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

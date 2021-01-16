@@ -15,3 +15,11 @@
     <div class="copyright float-right">&copy; TicketBox Project - 18CLC-KTPM2
     </div>
 </div>
+<script>
+    window.onload = function() {
+if(!window.location.hash) {
+window.location = window.location + '#loaded';
+window.location.reload();
+}
+}
+</script>
