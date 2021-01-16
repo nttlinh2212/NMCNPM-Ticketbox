@@ -32,9 +32,8 @@
                       <div class="container">
                         <form action="" method="post" id="form_edit" onsubmit="return validateForm()">
                           <div class="form-group">
-                            <label for="">Id</label>
-                            <input type="text" name="id" id="" class="form-control" value="<%= films.id %>"
-                              aria-describedby="helpId" readonly>
+                            <input type="hidden" name="id" id="" class="form-control" value="<%= films.id %>"
+                              aria-describedby="helpId">
                             <label for="">Title</label>
                             <input type="text" name="title" id="" class="form-control" value="<%= films.title %>"
                               aria-describedby="helpId" required>

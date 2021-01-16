@@ -19,7 +19,8 @@ router.get('/', authAdmin, async function (req, res) {
   const list = await filmModel.all();
   res.render('admin/film/index', {
     films: list,
-    empty: list.length === 0
+    empty: list.length === 0,
+    adminName : req.session.authUser.fullname
   });
 })
 
@@ -52,7 +53,8 @@ router.get('/edit/:id', async function (req, res) {
 
   console.log(films.genre);
   res.render('admin/film/edit', {
-    films
+    films,
+    adminName : req.session.authUser.fullname
   });
 })
 
@@ -140,7 +142,7 @@ router.post('/editWithoutUploadImage', async function (req, res, next) {
 })
 
 router.get('/add', async function (req, res) {
-  res.render('admin/film/add');
+  res.render('admin/film/add', {adminName : req.session.authUser.fullname});
 })
 
 router.post('/add', upload.single('file'), async function (req, res, next) {

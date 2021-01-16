@@ -139,9 +139,10 @@
                 //     alert("fsdf");
                 // });
                 if (data) {
+                    $('#showtime').empty();
                     $.each(data, function(i, item) {
                         //alert(JSON.stringify(item)+item.id+item.starttime);
-                        $('#showtime').empty().append($('<option>', {
+                        $('#showtime').append($('<option>', {
                             value: item.id,
                             text: item.starttime
                         }));

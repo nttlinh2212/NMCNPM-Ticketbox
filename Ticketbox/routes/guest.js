@@ -12,8 +12,7 @@ var router = express.Router();
 router.get('/', async function(req, res, next) {
     const films = await filmModel.all();
     const theaters = await theaterModel.all();
-
-
+    
     //console.log(await showtimeModel.allSeats(30000));
     //console.log(films);
     res.render('home', { title: 'Home', films, theaters });
@@ -48,13 +47,11 @@ router.post('/signin', async function(req, res) {
 
     req.session.auth = true;
     req.session.authUser = user;
-    if (req.session.authUser.isadmin === 1) {
-        console.log('login admin successfully');
-        res.redirect('/admin');
-    } else {
-        const url = req.session.retUrl || '/';
-        res.redirect(url);
-    }
+    var url = req.session.retUrl || '/';
+    console.log(url,'here url',req.session.authUser);
+    res.redirect(url);
+    res.end();
+
 
 });
 router.get('/signup', async function(req, res) {
@@ -90,12 +87,17 @@ router.get('/is-available', async function(req, res) {
     res.json(false);
 })
 router.get('/logout', async function(req, res) {
+    var url = req.headers.referer || '/';
+    if(req.session.auth===true && +req.session.authUser.isadmin === 1){
+        url = '/';
+    }
+        
     req.session.auth = false;
     req.session.authUser = null;
     req.session.retUrl = null;
 
-    const url = req.headers.referer || '/';
     res.redirect(url);
+    res.end();
 })
 
 router.get('/get-all-showtimes', async function(req, res) {

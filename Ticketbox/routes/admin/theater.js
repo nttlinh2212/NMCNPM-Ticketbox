@@ -8,7 +8,8 @@ router.get('/', authAdmin, async function (req, res) {
   console.log(list);
   res.render('admin/theater/index', {
     theaters: list,
-    empty: list.length === 0
+    empty: list.length === 0,
+    adminName: req.session.authUser.fullname
   });
 })
 
@@ -24,6 +25,7 @@ router.get('/edit/:id', async function (req, res) {
 
   res.render('admin/theater/edit', {
     theaters,
+    adminName: req.session.authUser.fullname
   });
 })
 
@@ -43,7 +45,7 @@ router.post('/edit', async function (req, res, next) {
 
 
 router.get('/add', async function (req, res) {
-  res.render('admin/theater/add', { theaters: theaterModel.all() });
+  res.render('admin/theater/add', { theaters: theaterModel.all(), adminName: req.session.authUser.fullname });
 })
 
 router.post('/add', async function (req, res) {
