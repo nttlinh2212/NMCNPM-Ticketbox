@@ -5,7 +5,7 @@
             <%- include('../layouts/navbar') %>
         </header>
 
-        <main class="page-header header-filter" style="background-image: url('../assets/img/bg7.jpg'); background-size: cover; background-position: top center;">
+        <main class="page-header header-filter" style="background-image: url('/images/theaterbg.jpg'); background-size: cover; background-position: top center;">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-6 ml-auto mr-auto">
@@ -32,41 +32,56 @@
                             <div class="card-body ">
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="profile">
-                                        <form action="" autocomplete="off">
+                                        <form action="" autocomplete="off" id="frm-info">
                                             <div class="form-group">
-                                                <label for="usernameInput" class="bmd-label-floating">Fullname</label>
-                                                <input type="text" class="form-control" id="usernameInput">
+                                                <label for="inputFullname" class="bmd-label-floating">Fullname</label>
+                                                <input type="text" class="form-control" id="inputFullname" value="<%= user.fullname %> ">
                                                 <span class="bmd-help">Your fullname mustn't contain numbers or special characters.</span>
                                             </div>
                                             <div class="form-group">
                                                 <label for="phoneInput" class="bmd-label-floating">Phone</label>
-                                                <input type="text" class="form-control" id="phoneInput">
+                                                <input type="text" class="form-control" id="phoneInput" value="<%= user.phone %>">
                                                 <span class="bmd-help">Your phone must have exactly 10 numbers.</span>
                                             </div>
                                             <div class="form-group">
                                                 <label class="label-control">Date Of Birth</label>
-                                                <input type="text" class="form-control datetimepicker" id="dobInput" autocomplete="off">
+                                                <input type="text" class="form-control datepicker" id="dobInput" autocomplete="off" value="<%= user.dob %>">
                                             </div>
                                             <div class="footer text-center">
-                                                <a href="#pablo" class="btn btn-primary btn-link btn-wd btn-lg">Change</a>
+                                                <a href="javascript:$('#frm-info').submit();" class="btn btn-primary btn-link btn-wd btn-lg">Change</a>
                                             </div>
                                         </form>
+                                        <div class="row justify-content-center">
+                                            <div class="col-sm-12 d-flex justify-content-center">
+                                                <div class="alert" id="info-alert">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane" id="settings">
-                                        <div class="form-group">
-                                            <label for="oldPasswordInput" class="bmd-label-floating" autocomplete="off">Old Password</label>
-                                            <input type="password" class="form-control" id="oldPasswordInput">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="newPasswordInput" class="bmd-label-floating">New Password</label>
-                                            <input type="password" class="form-control" id="newPasswordInput">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="confirmPasswordInput" class="bmd-label-floating">Confirm Password</label>
-                                            <input type="password" class="form-control" id="confirmPasswordInput">
-                                        </div>
-                                        <div class="footer text-center">
-                                            <a href="#pablo" class="btn btn-primary btn-link btn-wd btn-lg">Change Password</a>
+                                        <form id="frm-password">
+                                            <div class="form-group">
+                                                <label for="oldPassword" class="bmd-label-floating" autocomplete="off">Old Password</label>
+                                                <input type="password" class="form-control" id="oldPassword">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputPassword" class="bmd-label-floating">New Password</label>
+                                                <input type="password" class="form-control" id="inputPassword">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputCfPassword" class="bmd-label-floating">Confirm Password</label>
+                                                <input type="password" class="form-control" id="inputCfPassword">
+                                            </div>
+                                            <div class="footer text-center">
+                                                <a href="javascript:$('#frm-password').submit();" class="btn btn-primary btn-link btn-wd btn-lg">Change Password</a>
+                                            </div>
+                                        </form>
+                                        <div class="row justify-content-center">
+                                            <div class="col-sm-12 d-flex justify-content-center">
+                                                <div class="alert" id="password-alert">
+                                                    <button type="button" class="close" data-dismiss="alert">x</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -81,6 +96,7 @@
             </div>
         </main>
         <%- include('../layouts/scripts') %>
+            <script src="/javascripts/js/profile.js"></script>
     </body>
 
     </html>
