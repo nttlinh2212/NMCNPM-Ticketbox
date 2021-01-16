@@ -52,12 +52,18 @@
                                 <%= locals.authUser.fullname %>
                             </a>
                             <div class="dropdown-menu dropdown-with-icons">
-                                <a href="/customer/profile" class="dropdown-item">
-                                    <i class="fas fa-user-edit    "></i> &nbsp;&nbsp; Manage Account
-                                </a>
-                                <a href="/logout" class="dropdown-item">
-                                    <i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;&nbsp; Sign Out
-                                </a>
+                                <% if (authUser.isadmin == 1) { %>
+                                    <a href="/admin" class="dropdown-item">
+                                        <i class="fas fa-user-edit    "></i> &nbsp;&nbsp; Admin Dashboard
+                                    </a>
+                                    <% } else{ %>
+                                        <a href="/customer/profile" class="dropdown-item">
+                                            <i class="fas fa-user-edit    "></i> &nbsp;&nbsp; Manage Account
+                                        </a>
+                                        <% } %>
+                                            <a href="/logout" class="dropdown-item">
+                                                <i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;&nbsp; Sign Out
+                                            </a>
                             </div>
                         </li>
                         <% } %>
